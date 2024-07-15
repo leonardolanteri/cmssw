@@ -187,7 +187,7 @@
             <rSolid name="Notch_ext"/>
             <Translation x="([Notch_Rmin]+0.5*[Notch_bl2])" y="0.*mm" z="0.5*[Notch_thickness]+[BackSupportPlate_Z2]"/>
     </UnionSolid>
-
+    
     <Tubs name="Disc" rMin="[Disc_Rmin]" rMax="[Disc_Rmax]" dz="0.5*[Disc_thickness]" startPhi="0*deg" deltaPhi="360*deg"/>
     <Tubs name="Al_Disc" rMin="[Disc_Rmin]" rMax="[Disc_Rmax]" dz="0.5*[Al_Disc_thickness]" startPhi="0*deg" deltaPhi="360*deg"/>
     <Tubs name="FrontModerator" rMin="[FrontModerator_Rmin]" rMax="[FrontModerator_Rmax]" dz="0.5*[FrontModerator_thickness]" startPhi="0*deg" deltaPhi="360*deg"/>
@@ -268,6 +268,8 @@
     <!-- <Tubs name="InnerBrackets" rMin="[InnerCylinder_Rmax]" rMax="[Disc_Rmin]" dz="0.5*([BackSupportPlate_Z2]-[ETLzmin])" startPhi="0*deg" deltaPhi="360*deg"/> -->
     
     <!-- FRONT: face closest to IP, BACK: furthest from IP -->
+
+    
     <Tubs name="DiscSector_Front" rMin="[Disc_Rmin]" rMax="[Disc_Rmax]" dz="0.5*[Active_Disc_thickness]" startPhi="-90*deg" deltaPhi="180*deg"/> <!-- half-disc on front face -->
     <Tubs name="DiscSector_Back" rMin="[Disc_Rmin]" rMax="[Disc_Rmax]" dz="0.5*[Active_Disc_thickness]" startPhi="-90*deg" deltaPhi="180*deg"/> <!-- half-disc on back face -->
     
