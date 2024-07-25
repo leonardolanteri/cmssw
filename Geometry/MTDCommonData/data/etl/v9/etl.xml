@@ -267,12 +267,13 @@
     <!-- <Tubs name="InnerCylinder" rMin="[ETLrmin]" rMax="[InnerCylinder_Rmax]" dz="0.5*([BackSupportPlate_Z2]-[ETLzmin])" startPhi="0*deg" deltaPhi="360*deg"/> -->
     <!-- <Tubs name="InnerBrackets" rMin="[InnerCylinder_Rmax]" rMax="[Disc_Rmin]" dz="0.5*([BackSupportPlate_Z2]-[ETLzmin])" startPhi="0*deg" deltaPhi="360*deg"/> -->
     
-    <!-- FRONT: face closest to IP, BACK: furthest from IP -->
+    <!-- From this version there will be 2 discs, Disc1 closest to the IP, Disc2 furthest from IP, on each disc FRONT: face closest to IP, BACK: furthest from IP  -->
+    <Tubs name="DiscSector_Front_1" rMin="[Disc_Rmin]" rMax="[Disc_Rmax]" dz="0.5*[Active_Disc_thickness]" startPhi="-90*deg" deltaPhi="180*deg"/> <!-- half-disc on front face of disc 1-->
+    <Tubs name="DiscSector_Back_1" rMin="[Disc_Rmin]" rMax="[Disc_Rmax]" dz="0.5*[Active_Disc_thickness]" startPhi="-90*deg" deltaPhi="180*deg"/> <!-- half-disc on back face of disc 1 -->
+    <Tubs name="DiscSector_Front_2" rMin="[Disc_Rmin]" rMax="[Disc_Rmax]" dz="0.5*[Active_Disc_thickness]" startPhi="-90*deg" deltaPhi="180*deg"/> <!-- half-disc on front face of disc 2-->
+    <Tubs name="DiscSector_Back_2" rMin="[Disc_Rmin]" rMax="[Disc_Rmax]" dz="0.5*[Active_Disc_thickness]" startPhi="-90*deg" deltaPhi="180*deg"/> <!-- half-disc on back face of disc 2 -->
 
-    
-    <Tubs name="DiscSector_Front" rMin="[Disc_Rmin]" rMax="[Disc_Rmax]" dz="0.5*[Active_Disc_thickness]" startPhi="-90*deg" deltaPhi="180*deg"/> <!-- half-disc on front face -->
-    <Tubs name="DiscSector_Back" rMin="[Disc_Rmin]" rMax="[Disc_Rmax]" dz="0.5*[Active_Disc_thickness]" startPhi="-90*deg" deltaPhi="180*deg"/> <!-- half-disc on back face -->
-    
+
     <Tubs name="Cables1" rMin="[Cables_Rmin]" rMax="[Cables_Rmax]" dz="0.5*[PatchPanel_Cables_thickness]" startPhi="90*deg" deltaPhi="8*deg"/>
     <Tubs name="Cables2" rMin="[Cables_Rmin]" rMax="[Cables_Rmax]" dz="0.5*[PatchPanel_Cables_thickness]" startPhi="98*deg" deltaPhi="10.4*deg"/>
     <Tubs name="Cables3" rMin="[Cables_Rmin]" rMax="[Cables_Rmax]" dz="0.5*[PatchPanel_Cables_thickness]" startPhi="108.4*deg" deltaPhi="10.4*deg"/>
@@ -281,6 +282,8 @@
     <Tubs name="Cables6" rMin="[Cables_Rmin]" rMax="[Cables_Rmax]" dz="0.5*[PatchPanel_Cables_thickness]" startPhi="139.6*deg" deltaPhi="10.4*deg"/>
     <Tubs name="Cables7" rMin="[Cables_Rmin]" rMax="[Cables_Rmax]" dz="0.5*[PatchPanel_Cables_thickness]" startPhi="150*deg" deltaPhi="10.4*deg"/>
 
+  
+    <!-- definition of the modules solid/geometric part -->
     <Box name="Module" dx="0.5*[Module_X]" dy="0.5*[Module_Y]" dz="0.5*[Module_Z]"/>
     <Box name="ServiceHybrid3" dx="0.5*[ServiceHybrid_X3]" dy="0.5*[ServiceHybrid_Y]" dz="0.5*[ServiceHybrid_Z]"/>
     <Box name="ServiceHybrid6" dx="0.5*[ServiceHybrid_X6]" dy="0.5*[ServiceHybrid_Y]" dz="0.5*[ServiceHybrid_Z]"/>
@@ -316,7 +319,8 @@
       <rSolid name="etl:EndcapTimingLayer"/>
       <rMaterial name="materials:Air"/>
     </LogicalPart>
-    <!-- Disc1Timing and Disc2Timing introduced to be compatible with previous scenarios. Can be replaced with 2 copies of DiscTiming, since the 2 disks are identical -->
+
+    <!-- Disc1Timing and Disc2Timing are not identical (only the disposition of the modules, the components are identical) -->
     <LogicalPart name="Disc1Timing" category="unspecified">
       <rSolid name="etl:Disc"/>
       <rMaterial name="materials:Air"/>
@@ -397,12 +401,22 @@
     </LogicalPart>
     
     <!-- Sectors on Disc1 -->
-    <LogicalPart name="DiscSector_Front" category="unspecified">
-      <rSolid name="etl:DiscSector_Front"/>
+    <LogicalPart name="DiscSector_Front_1" category="unspecified">
+      <rSolid name="etl:DiscSector_Front_1"/>
       <rMaterial name="materials:Air"/>
     </LogicalPart>
-    <LogicalPart name="DiscSector_Back" category="unspecified">
-      <rSolid name="etl:DiscSector_Back"/>
+    <LogicalPart name="DiscSector_Back_1" category="unspecified">
+      <rSolid name="etl:DiscSector_Back_1"/>
+      <rMaterial name="materials:Air"/>
+    </LogicalPart>
+
+        <!-- Sectors on Disc2 -->
+    <LogicalPart name="DiscSector_Front_2" category="unspecified">
+      <rSolid name="etl:DiscSector_Front_2"/>
+      <rMaterial name="materials:Air"/>
+    </LogicalPart>
+    <LogicalPart name="DiscSector_Back_2" category="unspecified">
+      <rSolid name="etl:DiscSector_Back_2"/>
       <rMaterial name="materials:Air"/>
     </LogicalPart>
     
@@ -540,6 +554,8 @@
     </LogicalPart>
  </LogicalPartSection>
   
+
+ <!-- Elements composing the servicehybrids modules -->
   <PosPartSection label="etl.xml">
     <PosPart copyNumber="1">
       <rParent name="caloBase:CALOECFront"/>
@@ -680,25 +696,25 @@
     </PosPart>
     <PosPart copyNumber="1">
       <rParent name="etl:Disc1Timing"/>
-      <rChild name="etl:DiscSector_Front"/>
+      <rChild name="etl:DiscSector_Front_1"/>
       <rRotation name="rotations:000D"/>
       <Translation x="0.*mm" y="0.*mm" z="-1*[Disk_translation_z]" />
     </PosPart>
     <PosPart copyNumber="2">
       <rParent name="etl:Disc1Timing"/>
-      <rChild name="etl:DiscSector_Front"/>
+      <rChild name="etl:DiscSector_Front_1"/>
       <rRotation name="rotations:R180"/>
       <Translation x="0.*mm" y="0.*mm" z="-1*[Disk_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
       <rParent name="etl:Disc1Timing"/>
-      <rChild name="etl:DiscSector_Back"/>
+      <rChild name="etl:DiscSector_Back_1"/>
       <rRotation name="rotations:000D"/>
       <Translation x="0.*mm" y="0.*mm" z="[Disk_translation_z]" />
     </PosPart>
     <PosPart copyNumber="2">
       <rParent name="etl:Disc1Timing"/>
-      <rChild name="etl:DiscSector_Back"/>
+      <rChild name="etl:DiscSector_Back_1"/>
       <rRotation name="rotations:R180"/>
       <Translation x="0.*mm" y="0.*mm" z="[Disk_translation_z]" />
     </PosPart>
@@ -711,25 +727,25 @@
     </PosPart>
     <PosPart copyNumber="1">
       <rParent name="etl:Disc2Timing"/>
-      <rChild name="etl:DiscSector_Front"/>
+      <rChild name="etl:DiscSector_Front_2"/>
       <rRotation name="rotations:000D"/>
       <Translation x="0.*mm" y="0.*mm" z="-1*[Disk_translation_z]" />
     </PosPart>
     <PosPart copyNumber="2">
       <rParent name="etl:Disc2Timing"/>
-      <rChild name="etl:DiscSector_Front"/>
+      <rChild name="etl:DiscSector_Front_2"/>
       <rRotation name="rotations:R180"/>
       <Translation x="0.*mm" y="0.*mm" z="-1*[Disk_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
       <rParent name="etl:Disc2Timing"/>
-      <rChild name="etl:DiscSector_Back"/>
+      <rChild name="etl:DiscSector_Back_2"/>
       <rRotation name="rotations:000D"/>
       <Translation x="0.*mm" y="0.*mm" z="[Disk_translation_z]" />
     </PosPart>
     <PosPart copyNumber="2">
       <rParent name="etl:Disc2Timing"/>
-      <rChild name="etl:DiscSector_Back"/>
+      <rChild name="etl:DiscSector_Back_2"/>
       <rRotation name="rotations:R180"/>
       <Translation x="0.*mm" y="0.*mm" z="[Disk_translation_z]" />
     </PosPart>
@@ -1188,7 +1204,7 @@
     
 
   <!-- Algorithm Section begins -->
-  <!-- FRONT FACE  -->
+  <!-- FRONT FACE DISC 1 -->
   <Algorithm name="mtd:DDMTDLinear">
   <rParent name="etl:DiscSector_Front"/>
   <String name="ChildName" value="etl:Module_Front_Right"/>
