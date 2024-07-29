@@ -63,14 +63,15 @@
     <Constant name="ServiceExtVolume_R3" value="[caloBase:Rmax10]+[caloBase:slope0]*([BackSupportPlate_Z3]-[caloBase:Zpos10])"/>
     <Constant name="ServiceExtVolume_R4" value="[caloBase:Rmax10]+[caloBase:slope0]*([BackSupportPlate_Z4]-[caloBase:Zpos10])"/>
     <Constant name="InnerCylinder_center" value="0.5*([BackSupportPlate_Z2]+[caloBase:Zpos10])"/>
-    <Constant name="DeltaX" value="0.5*mm"/>
-    <Constant name="ServiceHybrid_Y" value="34*mm"/>
-    <Constant name="Module_Y" value="25.85*mm"/>  <!-- 28.25mm - 2.4mm overlapping with SH -->
-    <Constant name="Module_X" value="43.1*mm"/>
+    <Constant name="DeltaX" value="0.6*mm"/>
+    <Constant name="DeltaY" value="0.6*mm"/>
+    <Constant name="ServiceHybrid_Y" value="27*mm"/>
+    <Constant name="Module_Y" value="28.75*mm"/>  <!-- Does it overlap with the Service Hybrid? -->
+    <Constant name="Module_X" value="44.1*mm"/>
     <Constant name="Module_Z" value="7.58*mm"/> <!-- 2.75mm sensor module + 0.08mm Laird Film + 0.25mm Thermal Pad + 0.7mm connector gap + 1mm readout board + 2.8mm services-->
-    <Constant name="ServiceHybrid_X3" value="3*[Module_X]"/>
-    <Constant name="ServiceHybrid_X6" value="6*[Module_X]"/>
-    <Constant name="ServiceHybrid_X7" value="7*[Module_X]"/>
+    <Constant name="ServiceHybrid_X3" value="134.1*mm"/>
+    <Constant name="ServiceHybrid_X6" value="267.6*mm"/>
+    <Constant name="ServiceHybrid_X7" value="312.3*mm"/>
     <Constant name="ServiceHybrid_Z" value="6*mm"/>
     <Constant name="DeltaY_ServiceModule" value="29.925*mm"/>  <!-- ServiceHybrid_Y/2 + Module_Y/2 -->
     <Constant name="DeltaX_Service3_Service6" value="194.45*mm"/>  <!-- DeltaX + ServiceHybrid_X3/2 + ServiceHybrid_X6/2 -->
@@ -78,8 +79,8 @@
     <Constant name="DeltaX_Service6_Service7" value="280.65*mm"/>  <!-- DeltaX + ServiceHybrid_X6/2 + ServiceHybrid_X7/2 -->
     <Constant name="PowerBoard_Z" value="4*mm"/>
     <Constant name="servicesServiceHybrid_Z" value="2*mm"/>
-    <Constant name="LGADdy" value="21.2*mm"/> <!-- 16 pixels of 1.3 mm -->
-    <Constant name="LGADdx" value="21.2*mm"/> <!-- 16 pixels of 1.3 mm -->
+    <Constant name="LGADdy" value="21.4*mm"/> <!-- 16 pixels of 1.3 mm -->
+    <Constant name="LGADdx" value="21.6*mm"/> <!-- 16 pixels of 1.3 mm -->
     <Constant name="LGAD_active" value="0.05*mm"/>
     <Constant name="LGAD_Substrate" value="0.25*mm"/>
     <Constant name="LGAD_Z" value="0.3*mm"/>
@@ -87,8 +88,8 @@
     <Constant name="bumpBonds_Z" value="0.1*mm"/>
     <Constant name="lgadSep_Y" value="0.25*mm"/>
     <Constant name="lgadSep_X" value="0.5*mm"/>
-    <Constant name="ETROCdy" value="22.3*mm"/>
-    <Constant name="ETROCdx" value="20.8*mm"/>
+    <Constant name="ETROCdy" value="23*mm"/>
+    <Constant name="ETROCdx" value="21*mm"/>
     <Constant name="ETROC_Z" value="0.25*mm"/>
     <Constant name="glueETROC_Z" value="0.05*mm"/>
     <Constant name="etrocSep_Y" value="0.3*mm"/>
@@ -103,11 +104,11 @@
     <Constant name="ThermalPad_Z" value="0.25*mm"/>
     <Constant name="AlN_Base_Z" value="1.5*mm"/>
     <Constant name="LairdFilm_Z" value="0.08*mm"/>
-    <Constant name="ETROC_translation_x" value="10.45*mm"/>
-    <Constant name="LGAD_translation_x" value="10.85*mm"/> <!-- 0.5*(LGADdx + lgadSep_X) -->
+    <Constant name="ETROC_translation_x" value="11.025*mm"/>
+    <Constant name="LGAD_translation_x" value="11.025*mm"/> <!-- LGAD and ETROC placed in the center (x-wise) of the module -->
     <Constant name="LairdFilm_translation_y" value="1.7*mm"/>
-    <Constant name="ETROC_translation_y" value="1.625*mm"/>
-    <Constant name="LGAD_translation_y" value="2.2*mm"/>
+    <Constant name="ETROC_translation_y" value="2.35*mm"/>
+    <Constant name="LGAD_translation_y" value="3*mm"/>
     <Constant name="Disk_translation_z" value="7.75*mm"/>
     <Constant name="Module_translation_z" value="0.21*mm"/>
     <Constant name="ThermalPad_translation_z" value="3.665*mm"/>
@@ -1206,7 +1207,7 @@
   <!-- Algorithm Section begins -->
   <!-- FRONT FACE DISC 1 -->
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
   <String name="ChildName" value="etl:Module_Front_Right"/>
   <Numeric name="N" value="6"/>
   <Numeric name="StartCopyNo" value="1"/>
