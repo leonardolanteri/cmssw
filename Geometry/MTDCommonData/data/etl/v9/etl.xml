@@ -66,14 +66,14 @@
     <Constant name="DeltaX" value="0.6*mm"/>
     <Constant name="DeltaY" value="0.6*mm"/>
     <Constant name="ServiceHybrid_Y" value="27*mm"/>
-    <Constant name="Module_Y" value="28.75*mm"/>  <!-- Does it overlap with the Service Hybrid? -->
+    <Constant name="Module_Y" value="28.75*mm"/>
     <Constant name="Module_X" value="44.1*mm"/>
     <Constant name="Module_Z" value="7.58*mm"/> <!-- 2.75mm sensor module + 0.08mm Laird Film + 0.25mm Thermal Pad + 0.7mm connector gap + 1mm readout board + 2.8mm services-->
-    <Constant name="ServiceHybrid_X3" value="134.1*mm"/>
+    <Constant name="ServiceHybrid_X3" value="133.5*mm"/>
     <Constant name="ServiceHybrid_X6" value="267.6*mm"/>
     <Constant name="ServiceHybrid_X7" value="312.3*mm"/>
     <Constant name="ServiceHybrid_Z" value="6*mm"/>
-    <Constant name="DeltaY_ServiceModule" value="29.925*mm"/>  <!-- ServiceHybrid_Y/2 + Module_Y/2 -->
+    <Constant name="DeltaY_ServiceModule" value="42.25*mm"/>  <!-- ServiceHybrid_Y/2 + Module_Y/2 -->
     <Constant name="DeltaX_Service3_Service6" value="194.45*mm"/>  <!-- DeltaX + ServiceHybrid_X3/2 + ServiceHybrid_X6/2 -->
     <Constant name="DeltaX_Service3_Service7" value="216*mm"/>  <!-- DeltaX + ServiceHybrid_X3/2 + ServiceHybrid_X7/2 -->
     <Constant name="DeltaX_Service6_Service7" value="280.65*mm"/>  <!-- DeltaX + ServiceHybrid_X6/2 + ServiceHybrid_X7/2 -->
@@ -86,27 +86,24 @@
     <Constant name="LGAD_Z" value="0.3*mm"/>
     <Constant name="glueLGAD_Z" value="0.1*mm"/>
     <Constant name="bumpBonds_Z" value="0.1*mm"/>
-    <Constant name="lgadSep_Y" value="0.25*mm"/>
-    <Constant name="lgadSep_X" value="0.5*mm"/>
     <Constant name="ETROCdy" value="23*mm"/>
     <Constant name="ETROCdx" value="21*mm"/>
     <Constant name="ETROC_Z" value="0.25*mm"/>
     <Constant name="glueETROC_Z" value="0.05*mm"/>
-    <Constant name="etrocSep_Y" value="0.3*mm"/>
-    <Constant name="etrocSep_X" value="0.1*mm"/>
+    <Constant name="Laird_Y" value="23*mm"/>
+    <Constant name="Laird_X" value="43.05*mm"/>
     <Constant name="modulePCB_Z" value="0.45*mm"/>
     <Constant name="connectorsGap_Z" value="0.7*mm"/>
     <Constant name="ReadoutBoard_Z" value="1*mm"/>
     <Constant name="servicesModule_Z" value="2.8*mm"/>
-    <Constant name="y_start_front" value="-1190*mm + 33.05*mm + [Module_Y]/2"/>
+    <Constant name="y_start_front_1" value="-1114.1*mm"/>
     <Constant name="y_start_back" value="1190*mm - 16.05*mm - [ServiceHybrid_Y]/2"/>
-    <Constant name="x_offset" value="1*mm + [Module_X]/2"/>
+    <Constant name="x_start_front_1" value="50.05*mm"/>
     <Constant name="ThermalPad_Z" value="0.25*mm"/>
     <Constant name="AlN_Base_Z" value="1.5*mm"/>
     <Constant name="LairdFilm_Z" value="0.08*mm"/>
     <Constant name="ETROC_translation_x" value="11.025*mm"/>
-    <Constant name="LGAD_translation_x" value="11.025*mm"/> <!-- LGAD and ETROC placed in the center (x-wise) of the module -->
-    <Constant name="LairdFilm_translation_y" value="1.7*mm"/>
+    <Constant name="LGAD_translation_x" value="11.025*mm"/>
     <Constant name="ETROC_translation_y" value="2.35*mm"/>
     <Constant name="LGAD_translation_y" value="3*mm"/>
     <Constant name="Disk_translation_z" value="7.75*mm"/>
@@ -285,14 +282,15 @@
 
   
     <!-- definition of the modules solid/geometric part -->
-    <Box name="Module" dx="0.5*[Module_X]" dy="0.5*[Module_Y]" dz="0.5*[Module_Z]"/>
+    <Box name="Half_Module" dx="0.5*[Module_X]" dy="0.5*[Module_Y]" dz="0.5*[Module_Z]"/>
+    <Box name="Module" dx="0.5*[Module_X]" dy="[Module_Y]" dz="0.5*[Module_Z]"/>
     <Box name="ServiceHybrid3" dx="0.5*[ServiceHybrid_X3]" dy="0.5*[ServiceHybrid_Y]" dz="0.5*[ServiceHybrid_Z]"/>
     <Box name="ServiceHybrid6" dx="0.5*[ServiceHybrid_X6]" dy="0.5*[ServiceHybrid_Y]" dz="0.5*[ServiceHybrid_Z]"/>
     <Box name="ServiceHybrid7" dx="0.5*[ServiceHybrid_X7]" dy="0.5*[ServiceHybrid_Y]" dz="0.5*[ServiceHybrid_Z]"/>
 
-    <!-- boxes included in Module volume -->
+    <!-- boxes included in half a Module volume -->
     <Box name="ThermalPad" dx="0.5*[Module_X]" dy="0.5*[Module_Y]" dz="0.5*[ThermalPad_Z]"/>
-    <Box name="LairdFilm" dx="0.5*([ETROCdx]*2+[etrocSep_X])" dy="0.5*([ETROCdy]+0.5*[etrocSep_Y])" dz="0.5*[LairdFilm_Z]"/>
+    <Box name="LairdFilm" dx="0.5*(Laird_X)" dy="0.5*(Laird_Y)" dz="0.5*[LairdFilm_Z]"/>
     <Box name="AlN_Base" dx="0.5*[Module_X]" dy="0.5*[Module_Y]" dz="0.5*[AlN_Base_Z]"/>
     <Box name="glueLGAD" dx="0.5*[LGADdx]" dy="0.5*[LGADdy]" dz="0.5*[glueLGAD_Z]"/>
     <Box name="BumpBonds" dx="0.5*[LGADdx]" dy="0.5*[LGADdy]" dz="0.5*[bumpBonds_Z]"/>
@@ -301,7 +299,7 @@
     <Box name="LGAD_Substrate" dx="0.5*[LGADdx]" dy="0.5*[LGADdy]" dz="0.5*[LGAD_Substrate]"/>
     <Box name="ETROC" dx="0.5*[ETROCdx]" dy="0.5*[ETROCdy]" dz="0.5*[ETROC_Z]"/>
     <Box name="glueETROC" dx="0.5*[ETROCdx]" dy="0.5*[ETROCdy]" dz="0.5*[glueETROC_Z]"/>
-    <Box name="ModulePCB" dx="0.5*[ETROCdx]" dy="0.5*[ETROCdy]" dz="0.5*[modulePCB_Z]"/>
+    <Box name="ModulePCB" dx="0.5*[Module_X]" dy="0.5*[Module_Y]" dz="0.5*[modulePCB_Z]"/>
     <Box name="connectorsGap" dx="0.5*[Module_X]" dy="0.5*[Module_Y]" dz="0.5*[connectorsGap_Z]"/>
     <Box name="ReadoutBoard" dx="0.5*[Module_X]" dy="0.5*[Module_Y]" dz="0.5*[ReadoutBoard_Z]"/>
     <Box name="servicesModule" dx="0.5*[Module_X]" dy="0.5*[Module_Y]" dz="0.5*[servicesModule_Z]"/>
@@ -422,21 +420,21 @@
     </LogicalPart>
     
     <!-- Sensor module on front face  -->
-    <LogicalPart name="Module_Front_Right" category="unspecified">
-      <rSolid name="etl:Module"/>
+    <LogicalPart name="Half_Module_Front" category="unspecified">
+      <rSolid name="etl:Half_Module"/>
       <rMaterial name="materials:Air"/>
     </LogicalPart>
-    <LogicalPart name="Module_Front_Left" category="unspecified">
+        <LogicalPart name="Module_Front" category="unspecified">
       <rSolid name="etl:Module"/>
       <rMaterial name="materials:Air"/>
     </LogicalPart>
 
     <!-- Sensor module on back face  -->
-    <LogicalPart name="Module_Back_Left" category="unspecified">
-      <rSolid name="etl:Module"/>
+    <LogicalPart name="Half_Module_Back" category="unspecified">
+      <rSolid name="etl:Half_Module"/>
       <rMaterial name="materials:Air"/>
     </LogicalPart>
-    <LogicalPart name="Module_Back_Right" category="unspecified">
+      <LogicalPart name="Module_Back" category="unspecified">
       <rSolid name="etl:Module"/>
       <rMaterial name="materials:Air"/>
     </LogicalPart>
@@ -817,97 +815,106 @@
     </PosPart>
     
     
-    <!-- Elements composing Module_Front_Right -->
+    <!-- Elements composing half Module_Front -->
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Right"/>
+      <rParent name="etl:Half_Module_Front"/>
       <rChild name="etl:ThermalPad"/>
       <Translation x="0.*mm" y="0.*mm" z="[ThermalPad_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Right"/>
+      <rParent name="etl:Half_Module_Front"/>
       <rChild name="etl:AlN_Base"/>
       <Translation x="0.*mm" y="0.*mm" z="[AlN_Base_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Right"/>
+      <rParent name="etl:Half_Module_Front"/>
       <rChild name="etl:LairdFilm"/>
-      <Translation x="0.*mm" y="-1*[LairdFilm_translation_y]" z="[LairdFilm_translation_z]" />
+      <Translation x="0.*mm" y="-1*[ETROC_translation_y]" z="[LairdFilm_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Right"/>
+      <rParent name="etl:Half_Module_Front"/>
       <rChild name="etl:glueLGAD"/>
       <Translation x="-1*[LGAD_translation_x]" y="-1*[LGAD_translation_y]" z="[glueLGAD_translation_z]" />
     </PosPart>
     <PosPart copyNumber="2">
-      <rParent name="etl:Module_Front_Right"/>
+      <rParent name="etl:Half_Module_Front"/>
       <rChild name="etl:glueLGAD"/>
       <Translation x="[LGAD_translation_x]" y="-1*[LGAD_translation_y]" z="[glueLGAD_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Right"/>
+      <rParent name="etl:Half_Module_Front"/>
       <rChild name="etl:BumpBonds"/>
       <Translation x="-1*[LGAD_translation_x]" y="-1*[LGAD_translation_y]" z="[bumpBonds_translation_z]" />
     </PosPart>
     <PosPart copyNumber="2">
-      <rParent name="etl:Module_Front_Right"/>
+      <rParent name="etl:Half_Module_Front"/>
       <rChild name="etl:BumpBonds"/>
       <Translation x="[LGAD_translation_x]" y="-1*[LGAD_translation_y]" z="[bumpBonds_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Right"/>
-      <rChild name="etl:ETROC"/>
-      <Translation x="[ETROC_translation_x]" y="-1*[ETROC_translation_y]" z="[ETROC_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="2">
-      <rParent name="etl:Module_Front_Right"/>
+      <rParent name="etl:Half_Module_Front"/>
       <rChild name="etl:ETROC"/>
       <Translation x="-1*[ETROC_translation_x]" y="-1*[ETROC_translation_y]" z="[ETROC_translation_z]" />
     </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Right"/>
-      <rChild name="etl:glueETROC"/>
-      <Translation x="[ETROC_translation_x]" y="-1*[ETROC_translation_y]" z="[glueETROC_translation_z]"  />
-    </PosPart>
     <PosPart copyNumber="2">
-      <rParent name="etl:Module_Front_Right"/>
+      <rParent name="etl:Half_Module_Front"/>
+      <rChild name="etl:ETROC"/>
+      <Translation x="[ETROC_translation_x]" y="-1*[ETROC_translation_y]" z="[ETROC_translation_z]" />
+    </PosPart>
+    <PosPart copyNumber="1">
+      <rParent name="etl:Half_Module_Front"/>
       <rChild name="etl:glueETROC"/>
       <Translation x="-1*[ETROC_translation_x]" y="-1*[ETROC_translation_y]" z="[glueETROC_translation_z]"  />
     </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Right"/>
-      <rChild name="etl:ModulePCB"/>
-      <Translation x="[ETROC_translation_x]" y="-1*[ETROC_translation_y]" z="[modulePCB_translation_z]"  />
-    </PosPart>
     <PosPart copyNumber="2">
-      <rParent name="etl:Module_Front_Right"/>
-      <rChild name="etl:ModulePCB"/>
-      <Translation x="-1*[ETROC_translation_x]" y="-1*[ETROC_translation_y]" z="[modulePCB_translation_z]"  />
+      <rParent name="etl:Half_Module_Front"/>
+      <rChild name="etl:glueETROC"/>
+      <Translation x="[ETROC_translation_x]" y="-1*[ETROC_translation_y]" z="[glueETROC_translation_z]"  />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Right"/>
+      <rParent name="etl:Half_Module_Front"/>
+      <rChild name="etl:ModulePCB"/>
+      <Translation x="0.*mm" y="0.*mm" z="[modulePCB_translation_z]"  />
+    </PosPart>
+    <PosPart copyNumber="1">
+      <rParent name="etl:Half_Module_Front"/>
       <rChild name="etl:connectorsGap"/>
       <Translation x="0.*mm" y="0." z="[connectorsGap_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Right"/>
+      <rParent name="etl:Half_Module_Front"/>
       <rChild name="etl:ReadoutBoard"/>
       <Translation x="0.*mm" y="0." z="[readoutBoard_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Right"/>
+      <rParent name="etl:Half_Module_Front"/>
       <rChild name="etl:servicesModule"/>
       <Translation x="0.*mm" y="0." z="[servicesModule_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Right"/>
+      <rParent name="etl:Half_Module_Front"/>
       <rChild name="etl:LGAD"/>
       <Translation x="-1*[LGAD_translation_x]" y="-1*[LGAD_translation_y]" z="[LGAD_translation_z]" />
     </PosPart>
     <PosPart copyNumber="2">
-      <rParent name="etl:Module_Front_Right"/>
+      <rParent name="etl:Half_Module_Front"/>
       <rChild name="etl:LGAD"/>
       <Translation x="[LGAD_translation_x]" y="-1*[LGAD_translation_y]" z="[LGAD_translation_z]" />
     </PosPart>
+
+    <!-- Two copies of half Module_Front compose the front Module-->
+    <PosPart copyNumber="1">
+      <rParent name="etl:Module_Front"/>
+      <rChild name="etl:Half_Module_Front"/>
+      <Translation x="0.*mm" y="0.5*[Module_Y]" z="0.*mm" />
+    </PosPart>
+     <PosPart copyNumber="2">
+      <rParent name="etl:Module_Front"/>
+      <rChild name="etl:Half_Module_Front"/>
+      <Translation x="0.*mm" y="-0.5*[Module_Y]" z="0.*mm" />
+      <Rotation x="0.*deg" y="0.*deg" z="180.*deg" />
+    </PosPart>
+
     <!-- definition of LGAD active/substrate volumes -->
     <PosPart copyNumber="1">
       <rParent name="etl:LGAD"/>
@@ -919,1740 +926,1068 @@
       <rChild name="etl:LGAD_Substrate"/>
       <Translation x="0.*mm" y="0.*mm" z="[LGAD_Substrate_translation_z]" />
     </PosPart>
-    
-    <!-- Elements composing Module_Front_Left -->
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:ThermalPad"/>
-      <Translation x="0.*mm" y="0.*mm" z="[ThermalPad_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:AlN_Base"/>
-      <Translation x="0.*mm" y="0.*mm" z="[AlN_Base_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:LairdFilm"/>
-      <Translation x="0.*mm" y="[LairdFilm_translation_y]" z="[LairdFilm_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:glueLGAD"/>
-      <Translation x="-1*[LGAD_translation_x]" y="[LGAD_translation_y]" z="[glueLGAD_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="2">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:glueLGAD"/>
-      <Translation x="[LGAD_translation_x]" y="[LGAD_translation_y]" z="[glueLGAD_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:BumpBonds"/>
-      <Translation x="-1*[LGAD_translation_x]" y="[LGAD_translation_y]" z="[bumpBonds_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="2">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:BumpBonds"/>
-      <Translation x="[LGAD_translation_x]" y="[LGAD_translation_y]" z="[bumpBonds_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:ETROC"/>
-      <Translation x="[ETROC_translation_x]" y="[ETROC_translation_y]" z="[ETROC_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="2">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:ETROC"/>
-      <Translation x="-1*[ETROC_translation_x]" y="[ETROC_translation_y]" z="[ETROC_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:glueETROC"/>
-      <Translation x="[ETROC_translation_x]" y="[ETROC_translation_y]" z="[glueETROC_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="2">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:glueETROC"/>
-      <Translation x="-1*[ETROC_translation_x]" y="[ETROC_translation_y]" z="[glueETROC_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:ModulePCB"/>
-      <Translation x="[ETROC_translation_x]" y="[ETROC_translation_y]" z="[modulePCB_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="2">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:ModulePCB"/>
-      <Translation x="-1*[ETROC_translation_x]" y="[ETROC_translation_y]" z="[modulePCB_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:connectorsGap"/>
-      <Translation x="0.*mm" y="0." z="[connectorsGap_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:ReadoutBoard"/>
-      <Translation x="0.*mm" y="0." z="[readoutBoard_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:servicesModule"/>
-      <Translation x="0.*mm" y="0." z="[servicesModule_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:LGAD"/>
-      <Translation x="-1*[LGAD_translation_x]" y="[LGAD_translation_y]" z="[LGAD_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="2">
-      <rParent name="etl:Module_Front_Left"/>
-      <rChild name="etl:LGAD"/>
-      <Translation x="[LGAD_translation_x]" y="[LGAD_translation_y]" z="[LGAD_translation_z]" />
-    </PosPart>
 
-    <!-- Elements composing Module_Back_Left -->
+    <!-- Elements composing half Module_Back -->
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:ThermalPad"/>
       <Translation x="0.*mm" y="0.*mm" z="-1*[ThermalPad_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:AlN_Base"/>
       <Translation x="0.*mm" y="0.*mm" z="-1*[AlN_Base_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:LairdFilm"/>
-      <Translation x="0.*mm" y="-1*[LairdFilm_translation_y]" z="-1*[LairdFilm_translation_z]" />
+      <Translation x="0.*mm" y="-1*[ETROC_translation_y]" z="-1*[LairdFilm_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:glueLGAD"/>
       <Translation x="-1*[LGAD_translation_x]" y="-1*[LGAD_translation_y]" z="-1*[glueLGAD_translation_z]" />
     </PosPart>
     <PosPart copyNumber="2">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:glueLGAD"/>
       <Translation x="[LGAD_translation_x]" y="-1*[LGAD_translation_y]" z="-1*[glueLGAD_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:BumpBonds"/>
       <Translation x="-1*[LGAD_translation_x]" y="-1*[LGAD_translation_y]" z="-1*[bumpBonds_translation_z]" />
     </PosPart>
     <PosPart copyNumber="2">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:BumpBonds"/>
       <Translation x="[LGAD_translation_x]" y="-1*[LGAD_translation_y]" z="-1*[bumpBonds_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back_Left"/>
       <rChild name="etl:ETROC"/>
       <Translation x="[ETROC_translation_x]" y="-1*[ETROC_translation_y]" z="-1*[ETROC_translation_z]" />
     </PosPart>
     <PosPart copyNumber="2">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:ETROC"/>
       <Translation x="-1*[ETROC_translation_x]" y="-1*[ETROC_translation_y]" z="-1*[ETROC_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:glueETROC"/>
       <Translation x="[ETROC_translation_x]" y="-1*[ETROC_translation_y]" z="-1*[glueETROC_translation_z]" />
     </PosPart>
     <PosPart copyNumber="2">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:glueETROC"/>
       <Translation x="-1*[ETROC_translation_x]" y="-1*[ETROC_translation_y]" z="-1*[glueETROC_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:ModulePCB"/>
       <Translation x="[ETROC_translation_x]" y="-1*[ETROC_translation_y]" z="-1*[modulePCB_translation_z]" />
     </PosPart>
     <PosPart copyNumber="2">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:ModulePCB"/>
       <Translation x="-1*[ETROC_translation_x]" y="-1*[ETROC_translation_y]" z="-1*[modulePCB_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:connectorsGap"/>
       <Translation x="0.*mm" y="0." z="-1*[connectorsGap_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:ReadoutBoard"/>
       <Translation x="0.*mm" y="0." z="-1*[readoutBoard_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:servicesModule"/>
       <Translation x="0.*mm" y="0." z="-1*[servicesModule_translation_z]" />
     </PosPart>
     <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:LGAD"/>
       <rRotation name="rotations:RPCD" />
       <Translation x="-1*[LGAD_translation_x]" y="-1*[LGAD_translation_y]" z="-1*[LGAD_translation_z]" />
     </PosPart>
     <PosPart copyNumber="2">
-      <rParent name="etl:Module_Back_Left"/>
+      <rParent name="etl:Half_Module_Back"/>
       <rChild name="etl:LGAD"/>
       <rRotation name="rotations:RPCD" />
       <Translation x="[LGAD_translation_x]" y="-1*[LGAD_translation_y]" z="-1*[LGAD_translation_z]" />
     </PosPart>
     
+    <!-- Two copies of half Module_Back compose the back Module-->
+    <PosPart copyNumber="1">
+      <rParent name="etl:Module_Back"/>
+      <rChild name="etl:Half_Module_Back"/>
+      <Translation x="0.*mm" y="0.5*[Module_Y]" z="0.*mm" />
+    </PosPart>
+     <PosPart copyNumber="2">
+      <rParent name="etl:Module_Back"/>
+      <rChild name="etl:Half_Module_Back"/>
+      <Translation x="0.*mm" y="-0.5*[Module_Y]" z="0.*mm" />
+      <Rotation x="0.*deg" y="0.*deg" z="180.*deg" />
+    </PosPart>
 
-    
-    <!-- Elements composing Module_Back_Right -->
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:ThermalPad"/>
-      <Translation x="0.*mm" y="0.*mm" z="-1*[ThermalPad_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:AlN_Base"/>
-      <Translation x="0.*mm" y="0.*mm" z="-1*[AlN_Base_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:LairdFilm"/>
-      <Translation x="0.*mm" y="[LairdFilm_translation_y]" z="-1*[LairdFilm_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:glueLGAD"/>
-      <Translation x="-1*[LGAD_translation_x]" y="[LGAD_translation_y]" z="-1*[glueLGAD_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="2">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:glueLGAD"/>
-      <Translation x="[LGAD_translation_x]" y="[LGAD_translation_y]" z="-1*[glueLGAD_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:BumpBonds"/>
-      <Translation x="-1*[LGAD_translation_x]" y="[LGAD_translation_y]" z="-1*[bumpBonds_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="2">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:BumpBonds"/>
-      <Translation x="[LGAD_translation_x]" y="[LGAD_translation_y]" z="-1*[bumpBonds_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:ETROC"/>
-      <Translation x="[ETROC_translation_x]" y="[ETROC_translation_y]" z="-1*[ETROC_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="2">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:ETROC"/>
-      <Translation x="-1*[ETROC_translation_x]" y="[ETROC_translation_y]" z="-1*[ETROC_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:glueETROC"/>
-      <Translation x="[ETROC_translation_x]" y="[ETROC_translation_y]" z="-1*[glueETROC_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="2">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:glueETROC"/>
-      <Translation x="-1*[ETROC_translation_x]" y="[ETROC_translation_y]" z="-1*[glueETROC_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:ModulePCB"/>
-      <Translation x="[ETROC_translation_x]" y="[ETROC_translation_y]" z="-1*[modulePCB_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="2">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:ModulePCB"/>
-      <Translation x="-1*[ETROC_translation_x]" y="[ETROC_translation_y]" z="-1*[modulePCB_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:connectorsGap"/>
-      <Translation x="0.*mm" y="0." z="-1*[connectorsGap_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:ReadoutBoard"/>
-      <Translation x="0.*mm" y="0." z="-1*[readoutBoard_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:servicesModule"/>
-      <Translation x="0.*mm" y="0." z="-1*[servicesModule_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="1">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:LGAD"/>
-      <rRotation name="rotations:RPCD" />
-      <Translation x="-1*[LGAD_translation_x]" y="[LGAD_translation_y]" z="-1*[LGAD_translation_z]" />
-    </PosPart>
-    <PosPart copyNumber="2">
-      <rParent name="etl:Module_Back_Right"/>
-      <rChild name="etl:LGAD"/>
-      <rRotation name="rotations:RPCD" />
-      <Translation x="[LGAD_translation_x]" y="[LGAD_translation_y]" z="-1*[LGAD_translation_z]" />
-    </PosPart>
-  </PosPartSection>
-    
 
   <!-- Algorithm Section begins -->
-  <!-- FRONT FACE DISC 1 -->
+  <!-- FRONT FACE DISC 1 (+z//face1//near and +z//face1//far given by the 180deg flip of the first one)-->
+
   <Algorithm name="mtd:DDMTDLinear">
   <rParent name="etl:DiscSector_Front_1"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="6"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="3"/>
   <Numeric name="StartCopyNo" value="1"/>
   <Numeric name="IncrCopyNo" value="1"/>
   <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]), ([Module_translation_z]) </Vector>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+2*[Module_X]+2*[DeltaX]), ([y_start_front_1]), ([Module_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
   <Numeric name="N" value="1"/>
   <Numeric name="StartCopyNo" value="1"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X7]/2), ([y_start_front]+[DeltaY_ServiceModule]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front_1]+[DeltaY_ServiceModule]+[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
   <Numeric name="N" value="7"/>
-  <Numeric name="StartCopyNo" value="1"/>
+  <Numeric name="StartCopyNo" value="4"/>
   <Numeric name="IncrCopyNo" value="1"/>
   <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+2*[DeltaY_ServiceModule]), ([Module_translation_z]) </Vector>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+2*[Module_X]+2*[DeltaX]), ([y_start_front]+2*[DeltaY_ServiceModule]+2*[DeltaY]), ([Module_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="11"/>
-  <Numeric name="StartCopyNo" value="7"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+2*[DeltaY_ServiceModule]+[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="1"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid] +[ServiceHybrid_X6]/2), ([y_start_front]+3*[DeltaY_ServiceModule]+[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
   <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
   <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="2"/>
+  <Numeric name="StartCopyNo" value="1"/>
   <Numeric name="IncrCopyNo" value="1"/>
   <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid] +[ServiceHybrid_X6]/2+[DeltaX_Service6_Service7]), ([y_start_front]+3*[DeltaY_ServiceModule]+[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+5*[Module_X]+5*[DeltaX]), ([y_start_front]+3*[DeltaY_ServiceModule]+3*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
   <Numeric name="N" value="13"/>
-  <Numeric name="StartCopyNo" value="8"/>
+  <Numeric name="StartCopyNo" value="11"/>
   <Numeric name="IncrCopyNo" value="1"/>
   <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+4*[DeltaY_ServiceModule]+[Module_Y]), ([Module_translation_z]) </Vector>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+4*[DeltaY_ServiceModule]+4*[DeltaY]), ([Module_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="15"/>
-  <Numeric name="StartCopyNo" value="18"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="2"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+4*[DeltaY_ServiceModule]+2*[Module_Y]), ([Module_translation_z]) </Vector>
+  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+5*[DeltaY_ServiceModule]+5*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
   <Numeric name="N" value="1"/>
   <Numeric name="StartCopyNo" value="1"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid] +[ServiceHybrid_X3]/2), ([y_start_front]+5*[DeltaY_ServiceModule]+2*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="2"/>
-  <Numeric name="IncrCopyNo" value="1"/>
   <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid] +[ServiceHybrid_X3]/2+[DeltaX_Service3_Service6]), ([y_start_front]+5*[DeltaY_ServiceModule]+2*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+9.5*[Module_X]+9.5*[DeltaX]), ([y_start_front]+5*[DeltaY_ServiceModule]+2*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="3"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[DeltaX_Service3_Service6]+[DeltaX_Service6_Service7]), ([y_start_front]+5*[DeltaY_ServiceModule]+2*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
   <Numeric name="N" value="16"/>
-  <Numeric name="StartCopyNo" value="21"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+6*[DeltaY_ServiceModule]+2*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="17"/>
-  <Numeric name="StartCopyNo" value="33"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+6*[DeltaY_ServiceModule]+3*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="3"/>
-  <Numeric name="StartCopyNo" value="3"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X6]/2), ([y_start_front]+7*[DeltaY_ServiceModule]+3*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="18"/>
-  <Numeric name="StartCopyNo" value="37"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+8*[DeltaY_ServiceModule]+3*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="19"/>
-  <Numeric name="StartCopyNo" value="50"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+8*[DeltaY_ServiceModule]+4*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="6"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X6]/2), ([y_start_front]+9*[DeltaY_ServiceModule]+4*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
-  <Numeric name="N" value="2"/>
-  <Numeric name="StartCopyNo" value="4"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X6]/2+[DeltaX_Service6_Service7]), ([y_start_front]+9*[DeltaY_ServiceModule]+4*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="20"/>
-  <Numeric name="StartCopyNo" value="55"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+10*[DeltaY_ServiceModule]+4*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="21"/>
-  <Numeric name="StartCopyNo" value="69"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+10*[DeltaY_ServiceModule]+5*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="2"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2), ([y_start_front]+11*[DeltaY_ServiceModule]+5*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="2"/>
-  <Numeric name="StartCopyNo" value="7"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[DeltaX_Service3_Service6]), ([y_start_front]+11*[DeltaY_ServiceModule]+5*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="6"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[DeltaX_Service3_Service6]+[ServiceHybrid_X6]+[DeltaX]+[DeltaX_Service6_Service7]), ([y_start_front]+11*[DeltaY_ServiceModule]+5*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="22"/>
-  <Numeric name="StartCopyNo" value="75"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+12*[DeltaY_ServiceModule]+5*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="22"/>
-  <Numeric name="StartCopyNo" value="90"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+12*[DeltaY_ServiceModule]+6*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="3"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2), ([y_start_front]+13*[DeltaY_ServiceModule]+6*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="9"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[DeltaX_Service3_Service6]), ([y_start_front]+13*[DeltaY_ServiceModule]+6*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
-  <Numeric name="N" value="2"/>
-  <Numeric name="StartCopyNo" value="7"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[DeltaX_Service3_Service6]+[DeltaX_Service6_Service7]), ([y_start_front]+13*[DeltaY_ServiceModule]+6*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="23"/>
-  <Numeric name="StartCopyNo" value="97"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+14*[DeltaY_ServiceModule]+6*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="24"/>
-  <Numeric name="StartCopyNo" value="112"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+14*[DeltaY_ServiceModule]+7*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="4"/>
-  <Numeric name="StartCopyNo" value="10"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X6]/2), ([y_start_front]+15*[DeltaY_ServiceModule]+7*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="24"/>
-  <Numeric name="StartCopyNo" value="120"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+16*[DeltaY_ServiceModule]+7*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="25"/>
-  <Numeric name="StartCopyNo" value="136"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+16*[DeltaY_ServiceModule]+8*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="3"/>
-  <Numeric name="StartCopyNo" value="14"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X6]/2), ([y_start_front]+17*[DeltaY_ServiceModule]+8*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="9"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X6]/2+2*[ServiceHybrid_X6]+2*[DeltaX]+[DeltaX_Service6_Service7]), ([y_start_front]+17*[DeltaY_ServiceModule]+8*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="25"/>
-  <Numeric name="StartCopyNo" value="144"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+18*[DeltaY_ServiceModule]+8*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="25"/>
-  <Numeric name="StartCopyNo" value="161"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+18*[DeltaY_ServiceModule]+9*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
-  <Numeric name="N" value="2"/>
-  <Numeric name="StartCopyNo" value="4"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2), ([y_start_front]+19*[DeltaY_ServiceModule]+9*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="17"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[ServiceHybrid_X3]+[DeltaX]+[DeltaX_Service3_Service6]), ([y_start_front]+19*[DeltaY_ServiceModule]+9*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
-  <Numeric name="N" value="2"/>
-  <Numeric name="StartCopyNo" value="10"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[ServiceHybrid_X3]+[DeltaX]+[DeltaX_Service3_Service6]+[DeltaX_Service6_Service7]), ([y_start_front]+19*[DeltaY_ServiceModule]+9*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="24"/>
-  <Numeric name="StartCopyNo" value="169"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+2*[Module_X]+2*[DeltaX]), ([y_start_front]+20*[DeltaY_ServiceModule]+9*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="21"/>
-  <Numeric name="StartCopyNo" value="186"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+5*[Module_X]+5*[DeltaX]), ([y_start_front]+20*[DeltaY_ServiceModule]+10*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="6"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+6*[Module_X]+6*[DeltaX]), ([y_start_front]+21*[DeltaY_ServiceModule]+10*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="3"/>
-  <Numeric name="StartCopyNo" value="18"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+6*[Module_X]+6*[DeltaX]+[DeltaX_Service3_Service6]), ([y_start_front]+21*[DeltaY_ServiceModule]+10*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="20"/>
-  <Numeric name="StartCopyNo" value="193"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+6*[Module_X]+6*[DeltaX]), ([y_start_front]+22*[DeltaY_ServiceModule]+10*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="20"/>
-  <Numeric name="StartCopyNo" value="207"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+6*[Module_X]+6*[DeltaX]), ([y_start_front]+22*[DeltaY_ServiceModule]+11*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="7"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> (<!-- 5.78+ --> [x_offset]+7*[Module_X]+7*[DeltaX]), ([y_start_front]+23*[DeltaY_ServiceModule]+11*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="3"/>
-  <Numeric name="StartCopyNo" value="21"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> (<!-- 5.78+ --> [x_offset]+7*[Module_X]+6*[DeltaX]+[DeltaX_Service3_Service6]), ([y_start_front]+23*[DeltaY_ServiceModule]+11*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="20"/>
-  <Numeric name="StartCopyNo" value="213"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+7*[Module_X]+7*[DeltaX]), ([y_start_front]+24*[DeltaY_ServiceModule]+11*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="20"/>
-  <Numeric name="StartCopyNo" value="227"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+7*[Module_X]+7*[DeltaX]), ([y_start_front]+24*[DeltaY_ServiceModule]+12*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
-  <Numeric name="N" value="2"/>
-  <Numeric name="StartCopyNo" value="8"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> (<!-- 5.7+ --> [x_offset]+8*[Module_X]+8*[DeltaX]), ([y_start_front]+25*[DeltaY_ServiceModule]+12*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
-  <Numeric name="N" value="2"/>
-  <Numeric name="StartCopyNo" value="12"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> (<!-- 5.7+ --> [x_offset]+8*[Module_X]+8*[DeltaX]+[ServiceHybrid_X3]+[DeltaX]+[DeltaX_Service3_Service7]), ([y_start_front]+25*[DeltaY_ServiceModule]+12*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="19"/>
-  <Numeric name="StartCopyNo" value="233"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+8*[Module_X]+8*[DeltaX]), ([y_start_front]+26*[DeltaY_ServiceModule]+12*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="19"/>
-  <Numeric name="StartCopyNo" value="247"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+8*[Module_X]+8*[DeltaX]), ([y_start_front]+26*[DeltaY_ServiceModule]+13*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
-  <Numeric name="N" value="2"/>
-  <Numeric name="StartCopyNo" value="10"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+9*[Module_X]+9*[DeltaX]), ([y_start_front]+27*[DeltaY_ServiceModule]+13*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="1"/>
   <Numeric name="StartCopyNo" value="24"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+9*[Module_X]+9*[DeltaX]+[ServiceHybrid_X3]+[DeltaX]+[DeltaX_Service3_Service6]), ([y_start_front]+27*[DeltaY_ServiceModule]+13*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+6*[DeltaY_ServiceModule]+6*[Module_Y]), ([Module_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
   <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
   <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="14"/>
+  <Numeric name="StartCopyNo" value="3"/>
   <Numeric name="IncrCopyNo" value="1"/>
   <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+9*[Module_X]+9*[DeltaX]+[ServiceHybrid_X3]+[DeltaX]+[DeltaX_Service3_Service6]+[DeltaX_Service6_Service7]), ([y_start_front]+27*[DeltaY_ServiceModule]+13*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+7*[DeltaY_ServiceModule]+7*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="19"/>
-  <Numeric name="StartCopyNo" value="252"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="2"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+8*[Module_X]+8*[DeltaX]), ([y_start_front]+28*[DeltaY_ServiceModule]+13*[Module_Y]), ([Module_translation_z]) </Vector>
+  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+9.5*[Module_X]+9.5*[DeltaX]), ([y_start_front]+7*[DeltaY_ServiceModule]+7*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="19"/>
-  <Numeric name="StartCopyNo" value="266"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+8*[Module_X]+8*[DeltaX]), ([y_start_front]+28*[DeltaY_ServiceModule]+14*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
   <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="2"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+14*[Module_X]+14*[DeltaX]), ([y_start_front]+7*[DeltaY_ServiceModule]+7*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="18"/>
+  <Numeric name="StartCopyNo" value="40"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+8*[DeltaY_ServiceModule]+8*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
+  <Numeric name="N" value="3"/>
+  <Numeric name="StartCopyNo" value="3"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+2.5*[Module_X]+2.5*[DeltaX]), ([y_start_front]+9*[DeltaY_ServiceModule]+9*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="19"/>
+  <Numeric name="StartCopyNo" value="58"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+10*[DeltaY_ServiceModule]+10*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="4"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+11*[DeltaY_ServiceModule]+11*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
+  <Numeric name="N" value="2"/>
+  <Numeric name="StartCopyNo" value="6"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+9.5*[Module_X]+9.5*[DeltaX]), ([y_start_front]+11*[DeltaY_ServiceModule]+11*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="21"/>
+  <Numeric name="StartCopyNo" value="77"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+12*[DeltaY_ServiceModule]+12*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
+  <Numeric name="N" value="3"/>
+  <Numeric name="StartCopyNo" value="5"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+13*[DeltaY_ServiceModule]+13*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="21"/>
+  <Numeric name="StartCopyNo" value="98"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+14*[DeltaY_ServiceModule]+14*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
+  <Numeric name="N" value="3"/>
+  <Numeric name="StartCopyNo" value="8"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+15*[DeltaY_ServiceModule]+15*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="19"/>
+  <Numeric name="StartCopyNo" value="119"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+1*[Module_X]+1*[DeltaX]), ([y_start_front]+16*[DeltaY_ServiceModule]+16*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="11"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+4*[Module_X]+4*[DeltaX]), ([y_start_front]+17*[DeltaY_ServiceModule]+17*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
+  <Numeric name="N" value="2"/>
+  <Numeric name="StartCopyNo" value="8"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+10.5*[Module_X]+10.5*[DeltaX]), ([y_start_front]+17*[DeltaY_ServiceModule]+17*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="17"/>
+  <Numeric name="StartCopyNo" value="138"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+18*[DeltaY_ServiceModule]+18*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
   <Numeric name="N" value="2"/>
   <Numeric name="StartCopyNo" value="12"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> (<!-- 5.7+ --> [x_offset]+8*[Module_X]+8*[DeltaX]), ([y_start_front]+29*[DeltaY_ServiceModule]+14*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+6*[Module_X]+6*[DeltaX]), ([y_start_front]+19*[DeltaY_ServiceModule]+19*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="3"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+18*[Module_X]+18*[DeltaX]), ([y_start_front_1]+19*[DeltaY_ServiceModule]+19*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="17"/>
+  <Numeric name="StartCopyNo" value="155"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+6*[Module_X]+6*[DeltaX]), ([y_start_front]+20*[DeltaY_ServiceModule]+20*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
   <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
   <Numeric name="N" value="2"/>
-  <Numeric name="StartCopyNo" value="15"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> (<!-- 5.7+ --> [x_offset]+8*[Module_X]+8*[DeltaX]+[ServiceHybrid_X3]+[DeltaX]+[DeltaX_Service3_Service7]), ([y_start_front]+29*[DeltaY_ServiceModule]+14*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="20"/>
-  <Numeric name="StartCopyNo" value="271"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+7*[Module_X]+7*[DeltaX]), ([y_start_front]+30*[DeltaY_ServiceModule]+14*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="20"/>
-  <Numeric name="StartCopyNo" value="285"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+7*[Module_X]+7*[DeltaX]), ([y_start_front]+30*[DeltaY_ServiceModule]+15*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
-  <Numeric name="N" value="1"/>
   <Numeric name="StartCopyNo" value="14"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> (<!-- 5.78+ --> [x_offset]+7*[Module_X]+7*[DeltaX]), ([y_start_front]+31*[DeltaY_ServiceModule]+15*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+9*[Module_X]+9*[DeltaX]), ([y_start_front]+21*[DeltaY_ServiceModule]+21*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="3"/>
-  <Numeric name="StartCopyNo" value="25"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> (<!-- 5.78+ --> [x_offset]+7*[Module_X]+6*[DeltaX]+[DeltaX_Service3_Service6]), ([y_start_front]+31*[DeltaY_ServiceModule]+15*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="20"/>
-  <Numeric name="StartCopyNo" value="291"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+6*[Module_X]+6*[DeltaX]), ([y_start_front]+32*[DeltaY_ServiceModule]+15*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="20"/>
-  <Numeric name="StartCopyNo" value="305"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+6*[Module_X]+6*[DeltaX]), ([y_start_front]+32*[DeltaY_ServiceModule]+16*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
   <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
   <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="15"/>
+  <Numeric name="StartCopyNo" value="4"/>
   <Numeric name="IncrCopyNo" value="1"/>
   <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+6*[Module_X]+6*[DeltaX]), ([y_start_front]+33*[DeltaY_ServiceModule]+16*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+21*[Module_X]+21*[DeltaX]), ([y_start_front_1]+21*[DeltaY_ServiceModule]+21*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="3"/>
-  <Numeric name="StartCopyNo" value="28"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+6*[Module_X]+6*[DeltaX]+[DeltaX_Service3_Service6]), ([y_start_front]+33*[DeltaY_ServiceModule]+16*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="21"/>
-  <Numeric name="StartCopyNo" value="311"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="17"/>
+  <Numeric name="StartCopyNo" value="172"/>
   <Numeric name="IncrCopyNo" value="1"/>
   <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+5*[Module_X]+5*[DeltaX]), ([y_start_front]+34*[DeltaY_ServiceModule]+16*[Module_Y]), ([Module_translation_z]) </Vector>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+6*[Module_X]+6*[DeltaX]), ([y_start_front]+22*[DeltaY_ServiceModule]+22*[DeltaY]), ([Module_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="24"/>
-  <Numeric name="StartCopyNo" value="325"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]+2*[Module_X]+2*[DeltaX]), ([y_start_front]+34*[DeltaY_ServiceModule]+17*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
   <Numeric name="N" value="2"/>
   <Numeric name="StartCopyNo" value="16"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2), ([y_start_front]+35*[DeltaY_ServiceModule]+17*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+9*[Module_X]+9*[DeltaX]), ([y_start_front]+23*[DeltaY_ServiceModule]+23*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="31"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[ServiceHybrid_X3]+[DeltaX]+[DeltaX_Service3_Service6]), ([y_start_front]+35*[DeltaY_ServiceModule]+17*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
-  <Numeric name="N" value="2"/>
-  <Numeric name="StartCopyNo" value="17"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[ServiceHybrid_X3]+[DeltaX]+[DeltaX_Service3_Service6]+[DeltaX_Service6_Service7]), ([y_start_front]+35*[DeltaY_ServiceModule]+17*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="25"/>
-  <Numeric name="StartCopyNo" value="332"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+36*[DeltaY_ServiceModule]+17*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="25"/>
-  <Numeric name="StartCopyNo" value="349"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+36*[DeltaY_ServiceModule]+18*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="3"/>
-  <Numeric name="StartCopyNo" value="32"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X6]/2), ([y_start_front]+37*[DeltaY_ServiceModule]+18*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="19"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X6]/2+2*[ServiceHybrid_X6]+2*[DeltaX]+[DeltaX_Service6_Service7]), ([y_start_front]+37*[DeltaY_ServiceModule]+18*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="25"/>
-  <Numeric name="StartCopyNo" value="357"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+38*[DeltaY_ServiceModule]+18*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="24"/>
-  <Numeric name="StartCopyNo" value="374"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+38*[DeltaY_ServiceModule]+19*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="4"/>
-  <Numeric name="StartCopyNo" value="35"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X6]/2), ([y_start_front]+39*[DeltaY_ServiceModule]+19*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="24"/>
-  <Numeric name="StartCopyNo" value="382"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+40*[DeltaY_ServiceModule]+19*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="23"/>
-  <Numeric name="StartCopyNo" value="398"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+40*[DeltaY_ServiceModule]+20*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
   <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="5"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+21*[Module_X]+21*[DeltaX]), ([y_start_front_1]+23*[DeltaY_ServiceModule]+23*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="16"/>
+  <Numeric name="StartCopyNo" value="189"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+7*[Module_X]+7*[DeltaX]), ([y_start_front]+24*[DeltaY_ServiceModule]+24*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
   <Numeric name="N" value="1"/>
   <Numeric name="StartCopyNo" value="18"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2), ([y_start_front]+41*[DeltaY_ServiceModule]+20*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+10*[Module_X]+10*[DeltaX]), ([y_start_front]+25*[DeltaY_ServiceModule]+25*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
   <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
   <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="39"/>
+  <Numeric name="StartCopyNo" value="10"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[DeltaX_Service3_Service6]), ([y_start_front]+41*[DeltaY_ServiceModule]+20*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+16.5*[Module_X]+16.5*[DeltaX]), ([y_start_front]+25*[DeltaY_ServiceModule]+25*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
-  <Numeric name="N" value="2"/>
-  <Numeric name="StartCopyNo" value="20"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[DeltaX_Service3_Service6]+[DeltaX_Service6_Service7]), ([y_start_front]+41*[DeltaY_ServiceModule]+20*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="22"/>
-  <Numeric name="StartCopyNo" value="406"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+42*[DeltaY_ServiceModule]+20*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="22"/>
-  <Numeric name="StartCopyNo" value="421"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+42*[DeltaY_ServiceModule]+21*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
   <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="6"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+21*[Module_X]+21*[DeltaX]), ([y_start_front_1]+25*[DeltaY_ServiceModule]+25*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="15"/>
+  <Numeric name="StartCopyNo" value="205"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+8*[Module_X]+8*[DeltaX]), ([y_start_front]+26*[DeltaY_ServiceModule]+26*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
+  <Numeric name="N" value="2"/>
+  <Numeric name="StartCopyNo" value="11"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+10.5*[Module_X]+10.5*[DeltaX]), ([y_start_front]+27*[DeltaY_ServiceModule]+27*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="7"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+21*[Module_X]+21*[DeltaX]), ([y_start_front_1]+27*[DeltaY_ServiceModule]+27*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="16"/>
+  <Numeric name="StartCopyNo" value="220"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+7*[Module_X]+7*[DeltaX]), ([y_start_front]+28*[DeltaY_ServiceModule]+28*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
   <Numeric name="N" value="1"/>
   <Numeric name="StartCopyNo" value="19"/>
   <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+10*[Module_X]+10*[DeltaX]), ([y_start_front]+29*[DeltaY_ServiceModule]+29*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="13"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+16.5*[Module_X]+16.5*[DeltaX]), ([y_start_front]+29*[DeltaY_ServiceModule]+29*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="8"/>
+  <Numeric name="IncrCopyNo" value="1"/>
   <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2), ([y_start_front]+43*[DeltaY_ServiceModule]+21*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+21*[Module_X]+21*[DeltaX]), ([y_start_front_1]+29*[DeltaY_ServiceModule]+29*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="2"/>
-  <Numeric name="StartCopyNo" value="40"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[DeltaX_Service3_Service6]), ([y_start_front]+43*[DeltaY_ServiceModule]+21*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="22"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[DeltaX_Service3_Service6]+[ServiceHybrid_X6]+[DeltaX]+[DeltaX_Service6_Service7]), ([y_start_front]+43*[DeltaY_ServiceModule]+21*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="21"/>
-  <Numeric name="StartCopyNo" value="428"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="17"/>
+  <Numeric name="StartCopyNo" value="236"/>
   <Numeric name="IncrCopyNo" value="1"/>
   <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+44*[DeltaY_ServiceModule]+21*[Module_Y]), ([Module_translation_z]) </Vector>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+6*[Module_X]+6*[DeltaX]), ([y_start_front]+30*[DeltaY_ServiceModule]+30*[DeltaY]), ([Module_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="20"/>
-  <Numeric name="StartCopyNo" value="443"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+44*[DeltaY_ServiceModule]+22*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="42"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X6]/2), ([y_start_front]+45*[DeltaY_ServiceModule]+22*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
   <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
   <Numeric name="N" value="2"/>
-  <Numeric name="StartCopyNo" value="23"/>
+  <Numeric name="StartCopyNo" value="20"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X6]/2+[DeltaX_Service6_Service7]), ([y_start_front]+45*[DeltaY_ServiceModule]+22*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+9*[Module_X]+9*[DeltaX]), ([y_start_front]+31*[DeltaY_ServiceModule]+31*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="19"/>
-  <Numeric name="StartCopyNo" value="449"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="9"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+46*[DeltaY_ServiceModule]+22*[Module_Y]), ([Module_translation_z]) </Vector>
+  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+21*[Module_X]+21*[DeltaX]), ([y_start_front_1]+31*[DeltaY_ServiceModule]+31*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
   <Numeric name="N" value="18"/>
-  <Numeric name="StartCopyNo" value="463"/>
+  <Numeric name="StartCopyNo" value="253"/>
   <Numeric name="IncrCopyNo" value="1"/>
   <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+46*[DeltaY_ServiceModule]+23*[Module_Y]), ([Module_translation_z]) </Vector>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+5*[Module_X]+5*[DeltaX]), ([y_start_front]+32*[DeltaY_ServiceModule]+32*[DeltaY]), ([Module_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
   <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
   <Numeric name="N" value="3"/>
-  <Numeric name="StartCopyNo" value="43"/>
+  <Numeric name="StartCopyNo" value="14"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X6]/2), ([y_start_front]+47*[DeltaY_ServiceModule]+23*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+7.5*[Module_X]+7.5*[DeltaX]), ([y_start_front]+33*[DeltaY_ServiceModule]+33*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="17"/>
-  <Numeric name="StartCopyNo" value="468"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+48*[DeltaY_ServiceModule]+23*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="16"/>
-  <Numeric name="StartCopyNo" value="481"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="18"/>
+  <Numeric name="StartCopyNo" value="271"/>
   <Numeric name="IncrCopyNo" value="1"/>
   <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+48*[DeltaY_ServiceModule]+24*[Module_Y]), ([Module_translation_z]) </Vector>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+2*[Module_X]+2*[DeltaX]), ([y_start_front]+34*[DeltaY_ServiceModule]+34*[DeltaY]), ([Module_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
+  <Numeric name="N" value="3"/>
+  <Numeric name="StartCopyNo" value="17"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+4.5*[Module_X]+4.5*[DeltaX]), ([y_start_front]+35*[DeltaY_ServiceModule]+35*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="20"/>
+  <Numeric name="StartCopyNo" value="289"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+36*[DeltaY_ServiceModule]+36*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
+  <Numeric name="N" value="2"/>
+  <Numeric name="StartCopyNo" value="22"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+37*[DeltaY_ServiceModule]+37*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
   <Numeric name="N" value="1"/>
   <Numeric name="StartCopyNo" value="20"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2), ([y_start_front]+49*[DeltaY_ServiceModule]+24*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+16.5*[Module_X]+16.5*[DeltaX]), ([y_start_front]+37*[DeltaY_ServiceModule]+37*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="46"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="22"/>
+  <Numeric name="StartCopyNo" value="309"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[DeltaX_Service3_Service6]), ([y_start_front]+49*[DeltaY_ServiceModule]+24*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+38*[DeltaY_ServiceModule]+38*[DeltaY]), ([Module_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
   <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
   <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="24"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+39*[DeltaY_ServiceModule]+39*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
+  <Numeric name="N" value="2"/>
+  <Numeric name="StartCopyNo" value="21"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+9.5*[Module_X]+9.5*[DeltaX]), ([y_start_front]+39*[DeltaY_ServiceModule]+39*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="10"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+20*[Module_X]+20*[DeltaX]), ([y_start_front_1]+39*[DeltaY_ServiceModule]+39*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="20"/>
+  <Numeric name="StartCopyNo" value="331"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+40*[DeltaY_ServiceModule]+40*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
+  <Numeric name="N" value="2"/>
   <Numeric name="StartCopyNo" value="25"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X3]/2+[DeltaX_Service3_Service6]+[DeltaX_Service6_Service7]), ([y_start_front]+49*[DeltaY_ServiceModule]+24*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+41*[DeltaY_ServiceModule]+41*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="15"/>
-  <Numeric name="StartCopyNo" value="485"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+50*[DeltaY_ServiceModule]+24*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="13"/>
-  <Numeric name="StartCopyNo" value="497"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+50*[DeltaY_ServiceModule]+25*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
   <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
   <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="47"/>
+  <Numeric name="StartCopyNo" value="23"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X6]/2), ([y_start_front]+51*[DeltaY_ServiceModule]+25*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+16.5*[Module_X]+16.5*[DeltaX]), ([y_start_front]+41*[DeltaY_ServiceModule]+41*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
-  <Numeric name="N" value="1"/>
-  <Numeric name="StartCopyNo" value="26"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X6]/2+[DeltaX_Service6_Service7]), ([y_start_front]+51*[DeltaY_ServiceModule]+25*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="11"/>
-  <Numeric name="StartCopyNo" value="500"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="19"/>
+  <Numeric name="StartCopyNo" value="351"/>
   <Numeric name="IncrCopyNo" value="1"/>
   <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+52*[DeltaY_ServiceModule]+25*[Module_Y]), ([Module_translation_z]) </Vector>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+42*[DeltaY_ServiceModule]+42*[DeltaY]), ([Module_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Right"/>
-  <Numeric name="N" value="7"/>
-  <Numeric name="StartCopyNo" value="510"/>
-  <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+52*[DeltaY_ServiceModule]+26*[Module_Y]), ([Module_translation_z]) </Vector>
-  <Numeric name="Theta" value="90.*deg"/>
-  <Numeric name="Phi" value="0.*deg"/>
-  <Numeric name="Theta_obj" value="90.*deg"/>
-  <Numeric name="Phi_obj" value="0.*deg"/>
-  </Algorithm>
-  <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
+  <rParent name="etl:DiscSector_Front_1"/>
   <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
   <Numeric name="N" value="1"/>
   <Numeric name="StartCopyNo" value="27"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([xoffset_servicehybrid]+[ServiceHybrid_X7]/2), ([y_start_front]+53*[DeltaY_ServiceModule]+26*[Module_Y]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+43*[DeltaY_ServiceModule]+43*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-  <rParent name="etl:DiscSector_Front"/>
-  <String name="ChildName" value="etl:Module_Front_Left"/>
-  <Numeric name="N" value="6"/>
-  <Numeric name="StartCopyNo" value="511"/>
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
+  <Numeric name="N" value="2"/>
+  <Numeric name="StartCopyNo" value="24"/>
   <Numeric name="IncrCopyNo" value="1"/>
-  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
-  <Vector  name="Base" type="numeric" nEntries="3"> ([x_offset]), ([y_start_front]+54*[DeltaY_ServiceModule]+26*[Module_Y]), ([Module_translation_z]) </Vector>
+  <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+9.5*[Module_X]+9.5*[DeltaX]), ([y_start_front]+43*[DeltaY_ServiceModule]+43*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
   <Numeric name="Theta" value="90.*deg"/>
   <Numeric name="Phi" value="0.*deg"/>
   <Numeric name="Theta_obj" value="90.*deg"/>
   <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
-
-
-
-
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="17"/>
+  <Numeric name="StartCopyNo" value="370"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+44*[DeltaY_ServiceModule]+44*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
+  <Numeric name="N" value="2"/>
+  <Numeric name="StartCopyNo" value="27"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+45*[DeltaY_ServiceModule]+45*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="11"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+15*[Module_X]+15*[DeltaX]), ([y_start_front_1]+45*[DeltaY_ServiceModule]+45*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="15"/>
+  <Numeric name="StartCopyNo" value="387"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+46*[DeltaY_ServiceModule]+46*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
+  <Numeric name="N" value="2"/>
+  <Numeric name="StartCopyNo" value="26"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+2.5*[Module_X]+2.5*[DeltaX]), ([y_start_front]+47*[DeltaY_ServiceModule]+47*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid3_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="12"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([ServiceHybrid_X3]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+13*[Module_X]+13*[DeltaX]), ([y_start_front_1]+47*[DeltaY_ServiceModule]+47*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="12"/>
+  <Numeric name="StartCopyNo" value="402"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+48*[DeltaY_ServiceModule]+48*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid6_Front"/>
+  <Numeric name="N" value="2"/>
+  <Numeric name="StartCopyNo" value="28"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+2.5*[Module_X]+2.5*[DeltaX]), ([y_start_front]+49*[DeltaY_ServiceModule]+49*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:Module_Front"/>
+  <Numeric name="N" value="7"/>
+  <Numeric name="StartCopyNo" value="414"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+2*[Module_X]+2*[DeltaX]), ([y_start_front]+50*[DeltaY_ServiceModule]+50*[DeltaY]), ([Module_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
+  <rParent name="etl:DiscSector_Front_1"/>
+  <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
+  <Numeric name="N" value="1"/>
+  <Numeric name="StartCopyNo" value="30"/>
+  <Numeric name="IncrCopyNo" value="1"/>
+  <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
+  <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+5*[Module_X]+5*[DeltaX]), ([y_start_front]+51*[DeltaY_ServiceModule]+51*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+  <Numeric name="Theta" value="90.*deg"/>
+  <Numeric name="Phi" value="0.*deg"/>
+  <Numeric name="Theta_obj" value="90.*deg"/>
+  <Numeric name="Phi_obj" value="0.*deg"/>
+  </Algorithm>
+   <!--modified until here-->
 
 
 <!-- BACK FACE -->
