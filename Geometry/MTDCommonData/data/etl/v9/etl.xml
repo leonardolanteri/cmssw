@@ -311,7 +311,7 @@
 
     <!-- boxes included in half a Module volume -->
     <Box name="ThermalPad" dx="0.5*[Module_X]" dy="0.5*[Module_Y]" dz="0.5*[ThermalPad_Z]"/>
-    <Box name="LairdFilm" dx="0.5*(Laird_X)" dy="0.5*(Laird_Y)" dz="0.5*[LairdFilm_Z]"/>
+    <Box name="LairdFilm" dx="0.5*(Laird_X)" dy="0.5*(ETROCdy)" dz="0.5*[LairdFilm_Z]"/>
     <Box name="AlN_Base" dx="0.5*[Module_X]" dy="0.5*[Module_Y]" dz="0.5*[AlN_Base_Z]"/>
     <Box name="glueLGAD" dx="0.5*[LGADdx]" dy="0.5*[LGADdy]" dz="0.5*[glueLGAD_Z]"/>
     <Box name="BumpBonds" dx="0.5*[LGADdx]" dy="0.5*[LGADdy]" dz="0.5*[bumpBonds_Z]"/>
