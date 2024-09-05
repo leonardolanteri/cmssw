@@ -1054,7 +1054,7 @@
       <Translation x="0.*mm" y="-0.5*[Module_Y]" z="0.*mm" />
       <Rotation x="0.*deg" y="0.*deg" z="180.*deg" />
     </PosPart>
-
+ </PosPartSection>
 
   <!-- Algorithm Section begins -->
   
