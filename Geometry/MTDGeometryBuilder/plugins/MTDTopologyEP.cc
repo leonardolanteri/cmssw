@@ -1,4 +1,4 @@
-//#define EDM_ML_DEBUG
+#define EDM_ML_DEBUG
 
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include "FWCore/ParameterSet/interface/ConfigurationDescriptions.h"
@@ -86,6 +86,33 @@ void MTDTopologyEP::fillBTLtopology(const MTDGeometry& mtdgeo, MTDTopology::BTLV
   btlVals = tmpLayout;
 }
 
+void MTDTopologyEP::fillParameters(const PMTDParameters& ptp, int& mtdTopologyMode, MTDTopology::ETLValues& etlVals) {
+  mtdTopologyMode = ptp.topologyMode_;
+
+  // for legacy geometry scenarios no topology information is stored, only for newer ETL 2-discs layout
+
+  if (mtdTopologyMode <= static_cast<int>(MTDTopologyMode::Mode::barphiflat)) {
+    return;
+  }
+  for (const auto& det : mtdgeo.detsBTL()) {
+    ieta++;
+
+    tmpLayout.btlDetId_[index] = det->geographicalId().rawId();
+    tmpLayout.btlPhi_[index] = iphi;
+    tmpLayout.btlEta_[index] = ieta;
+#ifdef EDM_ML_DEBUG
+    edm::LogVerbatim("MTDTopologyEP") << "MTDTopology BTL# " << index << " id= " << det->geographicalId().rawId()
+                                      << " iphi/ieta= " << iphi << " / " << ieta;
+#endif
+    if (ieta == tmpLayout.nBTLeta_) {
+      iphi++;
+      ieta = 0;
+    }
+    index++;
+  }
+  btlVals = tmpLayout;
+}
+
 void MTDTopologyEP::fillETLtopology(const PMTDParameters& ptp, int& mtdTopologyMode, MTDTopology::ETLValues& etlVals) {
   mtdTopologyMode = ptp.topologyMode_;
 
@@ -99,29 +126,105 @@ void MTDTopologyEP::fillETLtopology(const PMTDParameters& ptp, int& mtdTopologyM
 
   MTDTopology::ETLfaceLayout tmpFace;
 
-  // Front Face (0), starting with type Right (2)
+  if (mtdTopologyMode == static_cast<int>(MTDTopologyMode::Mode::btlv2etlv5) ||
+      mtdTopologyMode == static_cast<int>(MTDTopologyMode::Mode::btlv3etlv8)) {
+    // Disc1 Front Face (0), starting with type Right (2)
 
-  tmpFace.idDiscSide_ = 0;  // ETL front side
-  tmpFace.idDetType1_ = 2;  // ETL module type right
+    tmpFace.idDiscSide_ = 0;  // ETL front side, Disc1
+    tmpFace.idDetType1_ = 2;  // ETL module type right
 
-  tmpFace.start_copy_[0] = ptp.vitems_[3].vpars_;  // start_copy_FR
-  tmpFace.start_copy_[1] = ptp.vitems_[2].vpars_;  // start_copy_FL
-  tmpFace.offset_[0] = ptp.vitems_[7].vpars_;      // offset_FR
-  tmpFace.offset_[1] = ptp.vitems_[6].vpars_;      // offset_FL
+    tmpFace.start_copy_[0] = ptp.vitems_[3].vpars_;  // start_copy_FR
+    tmpFace.start_copy_[1] = ptp.vitems_[2].vpars_;  // start_copy_FL
+    tmpFace.offset_[0] = ptp.vitems_[7].vpars_;      // offset_FR
+    tmpFace.offset_[1] = ptp.vitems_[6].vpars_;      // offset_FL
 
-  etlVals.emplace_back(tmpFace);
+    etlVals.emplace_back(tmpFace);
 
-  // Back Face (1), starting with type Left (1)
+    // Disc1 Back Face (1), starting with type Left (1)
 
-  tmpFace.idDiscSide_ = 1;  // ETL back side
-  tmpFace.idDetType1_ = 1;  // ETL module type left
+    tmpFace.idDiscSide_ = 1;  // ETL back side, Disc1
+    tmpFace.idDetType1_ = 1;  // ETL module type left
 
-  tmpFace.start_copy_[0] = ptp.vitems_[4].vpars_;  // start_copy_BL
-  tmpFace.start_copy_[1] = ptp.vitems_[5].vpars_;  // start_copy_BR
-  tmpFace.offset_[0] = ptp.vitems_[8].vpars_;      // offset_BL
-  tmpFace.offset_[1] = ptp.vitems_[9].vpars_;      // offset_BR
+    tmpFace.start_copy_[0] = ptp.vitems_[4].vpars_;  // start_copy_BL
+    tmpFace.start_copy_[1] = ptp.vitems_[5].vpars_;  // start_copy_BR
+    tmpFace.offset_[0] = ptp.vitems_[8].vpars_;      // offset_BL
+    tmpFace.offset_[1] = ptp.vitems_[9].vpars_;      // offset_BR
 
-  etlVals.emplace_back(tmpFace);
+    etlVals.emplace_back(tmpFace);
+
+    // Disc2 Front Face (0), starting with type Right (2)
+
+    tmpFace.idDiscSide_ = 2;  // ETL front side, Disc2
+    tmpFace.idDetType1_ = 2;  // ETL module type right
+
+    tmpFace.start_copy_[0] = ptp.vitems_[3].vpars_;  // start_copy_FR
+    tmpFace.start_copy_[1] = ptp.vitems_[2].vpars_;  // start_copy_FL
+    tmpFace.offset_[0] = ptp.vitems_[7].vpars_;      // offset_FR
+    tmpFace.offset_[1] = ptp.vitems_[6].vpars_;      // offset_FL
+
+    etlVals.emplace_back(tmpFace);
+
+    // Disc2 Back Face (1), starting with type Left (1)
+
+    tmpFace.idDiscSide_ = 3;  // ETL back side, Disc2
+    tmpFace.idDetType1_ = 1;  // ETL module type left
+
+    tmpFace.start_copy_[0] = ptp.vitems_[4].vpars_;  // start_copy_BL
+    tmpFace.start_copy_[1] = ptp.vitems_[5].vpars_;  // start_copy_BR
+    tmpFace.offset_[0] = ptp.vitems_[8].vpars_;      // offset_BL
+    tmpFace.offset_[1] = ptp.vitems_[9].vpars_;      // offset_BR
+
+    etlVals.emplace_back(tmpFace);
+
+  } else if (mtdTopologyMode == static_cast<int>(MTDTopologyMode::Mode::btlv3etlv9)) {
+    // Disc1 Front Face (0), starting with type Right (2)
+
+    tmpFace.idDiscSide_ = 0;  // ETL front side, Disc1
+    tmpFace.idDetType1_ = 2;  // etl module type HalfFront2
+
+    tmpFace.start_copy_[0] = ptp.vitems_[2].vpars_;  // start_copy_FR
+    tmpFace.start_copy_[1] = ptp.vitems_[2].vpars_;  // start_copy_FL
+    tmpFace.offset_[0] = ptp.vitems_[6].vpars_;      // offset_FR
+    tmpFace.offset_[1] = ptp.vitems_[6].vpars_;      // offset_FL
+
+    etlVals.emplace_back(tmpFace);
+
+    // Disc1 Back Face (1), starting with type Left (1)
+
+    tmpFace.idDiscSide_ = 1;  // ETL back side, Disc1
+    tmpFace.idDetType1_ = 2;  // ETL module type HalfBack2
+
+    tmpFace.start_copy_[0] = ptp.vitems_[3].vpars_;  // start_copy_BL
+    tmpFace.start_copy_[1] = ptp.vitems_[3].vpars_;  // start_copy_BR
+    tmpFace.offset_[0] = ptp.vitems_[7].vpars_;      // offset_BL
+    tmpFace.offset_[1] = ptp.vitems_[7].vpars_;      // offset_BR
+
+    etlVals.emplace_back(tmpFace);
+
+    // Disc2 Front Face (0), starting with type Right (2)
+
+    tmpFace.idDiscSide_ = 2;  // ETL front side, Disc2
+    tmpFace.idDetType1_ = 2;  // etl module type HalfFront2
+
+    tmpFace.start_copy_[0] = ptp.vitems_[4].vpars_;  // start_copy_FR
+    tmpFace.start_copy_[1] = ptp.vitems_[4].vpars_;  // start_copy_FL
+    tmpFace.offset_[0] = ptp.vitems_[8].vpars_;      // offset_FR
+    tmpFace.offset_[1] = ptp.vitems_[8].vpars_;      // offset_FL
+
+    etlVals.emplace_back(tmpFace);
+
+    // Disc2 Back Face (1), starting with type Left (1)
+
+    tmpFace.idDiscSide_ = 3;  // ETL back side, Disc2
+    tmpFace.idDetType1_ = 2;  // ETL module type HalfBack2
+
+    tmpFace.start_copy_[0] = ptp.vitems_[5].vpars_;  // start_copy_BL
+    tmpFace.start_copy_[1] = ptp.vitems_[5].vpars_;  // start_copy_BR
+    tmpFace.offset_[0] = ptp.vitems_[9].vpars_;      // offset_BL
+    tmpFace.offset_[1] = ptp.vitems_[9].vpars_;      // offset_BR
+
+    etlVals.emplace_back(tmpFace);
+  }
 
 #ifdef EDM_ML_DEBUG
   edm::LogVerbatim("MTDTopologyEP") << " Topology mode = " << mtdTopologyMode << "\n";
