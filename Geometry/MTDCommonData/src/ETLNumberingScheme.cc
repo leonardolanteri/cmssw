@@ -48,15 +48,19 @@ uint32_t ETLNumberingScheme::getUnitID(const MTDBaseNumber& baseNumber) const {
   if (!prev9) {
     modCopy = baseNumber.getCopyNumber(3);
   }
-  uint32_t sensor(0);
-  if (!prev8) {
-    sensor = baseNumber.getCopyNumber(1);
-  }
   uint32_t modtyp(0);
   if (prev9) {
     modtyp = (baseNumber.getLevelName(2).find("_Left") != std::string::npos) ? 1 : 2;
   } else {
     modtyp = baseNumber.getCopyNumber(2);
+  }
+  uint32_t sensor(0);
+  if (!prev8) {
+    sensor = baseNumber.getCopyNumber(1);
+  }
+  // for v9 keep the same sensore order inside a module as in v8
+  if (!prev9 && modtyp == 2) {
+    sensor = (sensor == 1) ? 2 : 1;
   }
 
   uint32_t discN, sectorS, sectorN;

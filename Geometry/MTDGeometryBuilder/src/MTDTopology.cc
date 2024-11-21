@@ -124,7 +124,7 @@ size_t MTDTopology::hshiftETL(const uint32_t detid, const int horizontalShift) c
   int sensor = start_mod.sensor();
   int module = start_mod.module();
   uint32_t modtyp = start_mod.modType();
-  uint32_t discface = start_mod.discSide() + 2 * (start_mod.nDisc()-1);
+  uint32_t discface = start_mod.discSide() + 2 * (start_mod.nDisc() - 1);
   int geomDetIndex;
 
   // distinguish numbering in prev8 / v8 geometries
@@ -173,7 +173,7 @@ size_t MTDTopology::vshiftETL(const uint32_t detid, const int verticalShift, siz
   int sensor = start_mod.sensor();
   int module = start_mod.module();
   uint32_t modtyp = start_mod.modType();
-  uint32_t discface = start_mod.discSide() + 2 * (start_mod.nDisc()-1);
+  uint32_t discface = start_mod.discSide() + 2 * (start_mod.nDisc() - 1);
   int geomDetIndex;
 
   // distinguish numbering in prev8 / v8 geometries
