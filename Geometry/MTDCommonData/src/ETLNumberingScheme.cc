@@ -58,7 +58,7 @@ uint32_t ETLNumberingScheme::getUnitID(const MTDBaseNumber& baseNumber) const {
   if (!prev8) {
     sensor = baseNumber.getCopyNumber(1);
   }
-  // for v9 keep the same sensore order inside a module as in v8
+  // for v9 keep the same sensor order inside a module as in v8
   if (!prev9 && modtyp == 2) {
     sensor = (sensor == 1) ? 2 : 1;
   }
