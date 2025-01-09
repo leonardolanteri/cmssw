@@ -86,33 +86,6 @@ void MTDTopologyEP::fillBTLtopology(const MTDGeometry& mtdgeo, MTDTopology::BTLV
   btlVals = tmpLayout;
 }
 
-void MTDTopologyEP::fillParameters(const PMTDParameters& ptp, int& mtdTopologyMode, MTDTopology::ETLValues& etlVals) {
-  mtdTopologyMode = ptp.topologyMode_;
-
-  // for legacy geometry scenarios no topology information is stored, only for newer ETL 2-discs layout
-
-  if (mtdTopologyMode <= static_cast<int>(MTDTopologyMode::Mode::barphiflat)) {
-    return;
-  }
-  for (const auto& det : mtdgeo.detsBTL()) {
-    ieta++;
-
-    tmpLayout.btlDetId_[index] = det->geographicalId().rawId();
-    tmpLayout.btlPhi_[index] = iphi;
-    tmpLayout.btlEta_[index] = ieta;
-#ifdef EDM_ML_DEBUG
-    edm::LogVerbatim("MTDTopologyEP") << "MTDTopology BTL# " << index << " id= " << det->geographicalId().rawId()
-                                      << " iphi/ieta= " << iphi << " / " << ieta;
-#endif
-    if (ieta == tmpLayout.nBTLeta_) {
-      iphi++;
-      ieta = 0;
-    }
-    index++;
-  }
-  btlVals = tmpLayout;
-}
-
 void MTDTopologyEP::fillETLtopology(const PMTDParameters& ptp, int& mtdTopologyMode, MTDTopology::ETLValues& etlVals) {
   mtdTopologyMode = ptp.topologyMode_;
 
