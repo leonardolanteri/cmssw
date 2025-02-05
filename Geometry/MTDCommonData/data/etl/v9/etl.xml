@@ -69,7 +69,7 @@
     <Constant name="ServiceHybrid_Y" value="27*mm"/>
     <Constant name="Module_Y" value="28.75*mm"/>
     <Constant name="Module_X" value="44.1*mm"/>
-    <Constant name="Module_Z" value="7.58*mm"/> <!-- 2.75mm sensor module + 0.08mm Laird Film + 0.25mm Thermal Pad + 0.7mm connector gap + 1mm readout board + 2.8mm services-->
+    <Constant name="Module_Z" value="7.63*mm"/> <!-- 2.80mm sensor module + 0.08mm Laird Film + 0.25mm Thermal Pad + 0.7mm connector gap + 1mm readout board + 2.8mm services-->
     <Constant name="ServiceHybrid_X3" value="133.5*mm"/>
     <Constant name="ServiceHybrid_X6" value="267.6*mm"/>
     <Constant name="ServiceHybrid_X7" value="312.3*mm"/>
@@ -109,19 +109,19 @@
     <Constant name="ETROC_translation_y" value="2.35*mm"/>
     <Constant name="LGAD_translation_y" value="3*mm"/>
     <Constant name="Disk_translation_z" value="7.75*mm"/>
-    <Constant name="Module_translation_z" value="0.21*mm"/>
-    <Constant name="ThermalPad_translation_z" value="3.665*mm"/>
-    <Constant name="AlN_Base_translation_z" value="2.79*mm"/>
-    <Constant name="LairdFilm_translation_z" value="2*mm"/>
+    <Constant name="Module_translation_z" value="0.185*mm"/>
+    <Constant name="ThermalPad_translation_z" value="3.69*mm"/>
+    <Constant name="AlN_Base_translation_z" value="2.815*mm"/>
+    <Constant name="LairdFilm_translation_z" value="2.025*mm"/>
     <Constant name="glueLGAD_translation_z" value="1.91*mm"/>
-    <Constant name="LGAD_translation_z" value="1.71*mm"/>
-    <Constant name="bumpBonds_translation_z" value="1.51*mm"/>
-    <Constant name="ETROC_translation_z" value="1.335*mm"/>
+    <Constant name="LGAD_translation_z" value="1.735*mm"/>
+    <Constant name="bumpBonds_translation_z" value="1.535*mm"/>
+    <Constant name="ETROC_translation_z" value="1.36*mm"/>
     <Constant name="glueETROC_translation_z" value="1.185*mm"/>
-    <Constant name="modulePCB_translation_z" value="0.935*mm"/>
-    <Constant name="connectorsGap_translation_z" value="0.36*mm"/>
-    <Constant name="readoutBoard_translation_z" value="-0.49*mm"/>
-    <Constant name="servicesModule_translation_z" value="-2.39*mm"/>
+    <Constant name="modulePCB_translation_z" value="0.91*mm"/>
+    <Constant name="connectorsGap_translation_z" value="0.335*mm"/>
+    <Constant name="readoutBoard_translation_z" value="-0.515*mm"/>
+    <Constant name="servicesModule_translation_z" value="-2.415*mm"/>
     <Constant name="LGAD_active_translation_z" value="-0.125*mm"/>
     <Constant name="LGAD_Substrate_translation_z" value="0.025*mm"/>
     <Constant name="PowerBoard_translation_z" value="1*mm"/>
@@ -129,26 +129,26 @@
     <Constant name="ServiceHybrid_translation_z" value="1.*mm"/>
     <Constant name="xoffset_servicehybrid" value="1*mm"/>
 
-    <!-- Vector Left = Vector Right, the two different vectors are needed for compatibility with the Navigation Algorithm-->
+    <!-- Vector section -->
 
-    <Vector name="StartCopyNo_Front_Disc_1" type="numeric" nEntries="28">
-      1, 4, 11, 24, 40, 58, 77, 98, 119, 138, 155, 172, 189, 205, 220,
-      236, 253, 271, 289, 309, 331, 351, 370, 387, 402, 414
+   <Vector name="StartCopyNo_Front_Disc_1" type="numeric" nEntries="28">
+      1, 7, 21, 47, 79, 115, 153, 195, 237, 275, 309, 343, 377, 409, 439,
+      471, 505, 541, 289, 578, 617, 701, 739, 773, 803, 827, 841
     </Vector>
 
     <Vector name="StartCopyNo_Back_Disc_1" type="numeric" nEntries="28">
-      1, 4, 14, 28, 44, 62, 82, 103, 123, 141, 159, 177, 194, 209, 224,
-      241, 258, 278, 296, 316, 337, 357, 376, 393, 408, 420
+      1, 7, 27, 55, 87, 123, 163, 205, 245, 281, 317, 353, 387, 417, 447,
+      481, 515, 555, 591, 631, 673, 713, 751, 785, 815, 839, 851
     </Vector>
 
     <Vector name="StartCopyNo_Front_Disc_2" type="numeric" nEntries="28">
-      1, 4, 11, 24, 40, 58, 77, 98, 119, 138, 156, 175, 192, 285, 223,
-      238, 255, 274, 292, 312, 334, 354, 373, 390, 405, 417
+      1, 7, 21, 47, 79, 115, 153, 195, 237, 275, 311, 349, 383, 569, 445,
+      477, 511, 549, 585, 625, 669, 709, 747, 781, 811, 835, 849
     </Vector>
 
     <Vector name="StartCopyNo_Back_Disc_2" type="numeric" nEntries="28">
-      1, 4, 14, 28, 44, 62, 82, 103, 123, 141, 159, 177, 194, 209, 224,
-      241, 258, 278, 296, 316, 337, 357, 376, 393, 408, 420
+      1, 7, 27, 55, 87, 123, 163, 205, 245, 281, 317, 353, 387, 417, 447,
+      481, 515, 555, 591, 631, 673, 713, 751, 785, 815, 839, 851
     </Vector>
 
     <Vector name="Offset_Front_Disc_1" type="numeric" nEntries="28">
@@ -166,6 +166,8 @@
     <Vector name="Offset_Back_Disc_2" type="numeric" nEntries="28">
       2, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 6, 8, 8, 6, 6, 3, 2, 0, 0, 0, 0, 0, 0, 0, 2
     </Vector>
+
+
 
   </ConstantsSection>
   
@@ -1876,7 +1878,7 @@
     <rParent name="etl:DiscSector_Front_1"/>
     <String name="ChildName" value="etl:ServiceHybrid7_Front"/>
     <Numeric name="N" value="2"/>
-    <Numeric name="StartCopyNo" value="27"/>
+    <Numeric name="StartCopyNo" value="28"/>
     <Numeric name="IncrCopyNo" value="1"/>
     <Numeric name="Delta" value="(7*[Module_X]+7*[DeltaX])"/>
     <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+45*[DeltaY_ServiceModule]+45*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
@@ -2555,7 +2557,7 @@
       <rParent name="etl:DiscSector_Back_1"/>
       <String name="ChildName" value="etl:ServiceHybrid6_Back"/>
       <Numeric name="N" value="1"/>
-      <Numeric name="StartCopyNo" value="6"/>
+      <Numeric name="StartCopyNo" value="20"/>
       <Numeric name="IncrCopyNo" value="1"/>
       <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
       <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+19.5*[Module_X]+19.5*[DeltaX]), ([y_start_front]+32*[DeltaY_ServiceModule]+32*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
@@ -3428,7 +3430,7 @@
     <rParent name="etl:DiscSector_Front_2"/>
     <String name="ChildName" value="etl:Module_Front"/>
     <Numeric name="N" value="17"/>
-    <Numeric name="StartCopyNo" value="238"/>
+    <Numeric name="StartCopyNo" value="239"/>
     <Numeric name="IncrCopyNo" value="1"/>
     <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
     <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+6*[Module_X]+6*[DeltaX]), ([y_start_front]+30*[DeltaY_ServiceModule]+30*[DeltaY]), ([Module_translation_z]) </Vector>
@@ -3467,7 +3469,7 @@
     <rParent name="etl:DiscSector_Front_2"/>
     <String name="ChildName" value="etl:Module_Front"/>
     <Numeric name="N" value="19"/>
-    <Numeric name="StartCopyNo" value="255"/>
+    <Numeric name="StartCopyNo" value="256"/>
     <Numeric name="IncrCopyNo" value="1"/>
     <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
     <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+4*[Module_X]+4*[DeltaX]), ([y_start_front]+32*[DeltaY_ServiceModule]+32*[DeltaY]), ([Module_translation_z]) </Vector>
@@ -3506,7 +3508,7 @@
     <rParent name="etl:DiscSector_Front_2"/>
     <String name="ChildName" value="etl:Module_Front"/>
     <Numeric name="N" value="18"/>
-    <Numeric name="StartCopyNo" value="274"/>
+    <Numeric name="StartCopyNo" value="275"/>
     <Numeric name="IncrCopyNo" value="1"/>
     <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
     <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+34*[DeltaY_ServiceModule]+34*[DeltaY]), ([Module_translation_z]) </Vector>
@@ -3532,7 +3534,7 @@
     <rParent name="etl:DiscSector_Front_2"/>
     <String name="ChildName" value="etl:Module_Front"/>
     <Numeric name="N" value="20"/>
-    <Numeric name="StartCopyNo" value="292"/>
+    <Numeric name="StartCopyNo" value="293"/>
     <Numeric name="IncrCopyNo" value="1"/>
     <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
     <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+36*[DeltaY_ServiceModule]+36*[DeltaY]), ([Module_translation_z]) </Vector>
@@ -3571,7 +3573,7 @@
     <rParent name="etl:DiscSector_Front_2"/>
     <String name="ChildName" value="etl:Module_Front"/>
     <Numeric name="N" value="22"/>
-    <Numeric name="StartCopyNo" value="312"/>
+    <Numeric name="StartCopyNo" value="313"/>
     <Numeric name="IncrCopyNo" value="1"/>
     <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
     <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+38*[DeltaY_ServiceModule]+38*[DeltaY]), ([Module_translation_z]) </Vector>
@@ -3623,7 +3625,7 @@
     <rParent name="etl:DiscSector_Front_2"/>
     <String name="ChildName" value="etl:Module_Front"/>
     <Numeric name="N" value="20"/>
-    <Numeric name="StartCopyNo" value="334"/>
+    <Numeric name="StartCopyNo" value="335"/>
     <Numeric name="IncrCopyNo" value="1"/>
     <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
     <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+40*[DeltaY_ServiceModule]+40*[DeltaY]), ([Module_translation_z]) </Vector>
@@ -3662,7 +3664,7 @@
     <rParent name="etl:DiscSector_Front_2"/>
     <String name="ChildName" value="etl:Module_Front"/>
     <Numeric name="N" value="19"/>
-    <Numeric name="StartCopyNo" value="354"/>
+    <Numeric name="StartCopyNo" value="355"/>
     <Numeric name="IncrCopyNo" value="1"/>
     <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
     <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+42*[DeltaY_ServiceModule]+42*[DeltaY]), ([Module_translation_z]) </Vector>
@@ -3701,7 +3703,7 @@
     <rParent name="etl:DiscSector_Front_2"/>
     <String name="ChildName" value="etl:Module_Front"/>
     <Numeric name="N" value="17"/>
-    <Numeric name="StartCopyNo" value="373"/>
+    <Numeric name="StartCopyNo" value="374"/>
     <Numeric name="IncrCopyNo" value="1"/>
     <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
     <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+44*[DeltaY_ServiceModule]+44*[DeltaY]), ([Module_translation_z]) </Vector>
@@ -3740,7 +3742,7 @@
     <rParent name="etl:DiscSector_Front_2"/>
     <String name="ChildName" value="etl:Module_Front"/>
     <Numeric name="N" value="15"/>
-    <Numeric name="StartCopyNo" value="390"/>
+    <Numeric name="StartCopyNo" value="391"/>
     <Numeric name="IncrCopyNo" value="1"/>
     <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
     <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+46*[DeltaY_ServiceModule]+46*[DeltaY]), ([Module_translation_z]) </Vector>
@@ -3779,7 +3781,7 @@
     <rParent name="etl:DiscSector_Front_2"/>
     <String name="ChildName" value="etl:Module_Front"/>
     <Numeric name="N" value="12"/>
-    <Numeric name="StartCopyNo" value="405"/>
+    <Numeric name="StartCopyNo" value="406"/>
     <Numeric name="IncrCopyNo" value="1"/>
     <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
     <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]), ([y_start_front]+48*[DeltaY_ServiceModule]+48*[DeltaY]), ([Module_translation_z]) </Vector>
@@ -3805,7 +3807,7 @@
     <rParent name="etl:DiscSector_Front_2"/>
     <String name="ChildName" value="etl:Module_Front"/>
     <Numeric name="N" value="7"/>
-    <Numeric name="StartCopyNo" value="417"/>
+    <Numeric name="StartCopyNo" value="418"/>
     <Numeric name="IncrCopyNo" value="1"/>
     <Numeric name="Delta" value="([Module_X]+[DeltaX])"/>
     <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+2*[Module_X]+2*[DeltaX]), ([y_start_front]+50*[DeltaY_ServiceModule]+50*[DeltaY]), ([Module_translation_z]) </Vector>
@@ -4392,7 +4394,7 @@
       <rParent name="etl:DiscSector_Back_2"/>
       <String name="ChildName" value="etl:ServiceHybrid6_Back"/>
       <Numeric name="N" value="1"/>
-      <Numeric name="StartCopyNo" value="6"/>
+      <Numeric name="StartCopyNo" value="20"/>
       <Numeric name="IncrCopyNo" value="1"/>
       <Numeric name="Delta" value="(6*[Module_X]+6*[DeltaX])"/>
       <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+19.5*[Module_X]+19.5*[DeltaX]), ([y_start_front]+32*[DeltaY_ServiceModule]+32*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
