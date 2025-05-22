@@ -15,12 +15,12 @@ import FWCore.ParameterSet.VarParsing as VarParsing
 ### SETUP OPTIONS
 options = VarParsing.VarParsing('standard')
 options.register('geometry',
-                 "D110",
+                 "D118",
                   VarParsing.VarParsing.multiplicity.singleton,
                   VarParsing.VarParsing.varType.string,
                   "geometry of operations: D95, D96, D98, D99, D100, D101, D102, D103, D104, D105, D106, D107, D108, D109, D110, D111, D112, D113, D114, D115, D116, D117, D118, D119")
 options.register('tol',
-                 0.01,
+                 0.0,
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.float,
                  "Tolerance for checking overlaps: 0.0, 0.01, 0.1, 1.0"
@@ -33,7 +33,6 @@ print(options)
 
 ####################################################################
 # Use the options
-
 geomName = "Run4" + options.geometry
 geomFile = "Configuration.Geometry.GeometryDD4hepExtended" + geomName + "Reco_cff"
 baseName = "cms" + geomName + "DD4hep"
