@@ -8,10 +8,21 @@
 /** 
     @class ETLDetId
     @brief Detector identifier class for the Endcap Timing Layer.
-
+    
+    v8-v10
     bit 15-5 : module sequential number
     bit 4-3  : module type (unused so far)
     bit 2-1  : sensor
+
+    v11 onwards
+    bit 15 : used to identify the version
+    bits 14-13 : unused
+    bits 12-11 : Service Hybrid type (3(1)-6(2)-7(3))
+    bits 10-5 : Service Hybrid copy number of that type
+    bits 4-2 : Module copy number within the Service hybrid
+    bit 1 : top/bottom side of the module (1 or 2)
+    bit 0 : sensor within each side (1 or 2)
+
 */
 
 class ETLDetId : public MTDDetId {
@@ -73,21 +84,21 @@ public:
     id_ |= kETLformatV2;
   }
 
-  /** Construct from a raw value DA CONTROLLARE SE BISOGNA TOCCARLO */
+  /** Construct from a raw value (applies a change in the Id if bit0 is 0 and bit15 is 0) */
   ETLDetId(const uint32_t& raw_id) {
     uint32_t tmpId = raw_id;
-    /*if ((tmpId & kETLformatV2) == 0) {
+    if (((tmpId >> kETLVersionOffset) & 0x1) == 0 && (tmpId & kETLformatV2) == 0) {
       tmpId = newForm(tmpId);
-    }*/
+    }
     id_ = MTDDetId(tmpId).rawId();
   }
 
-  /** Construct from generic DetId DA CONTROLLARE SE BISOGNA TOCCARLO */
+  /** Construct from generic DetId (applies a change in the Id if bit0 is 0 and bit15 is 0)*/
   ETLDetId(const DetId& det_id) {
     uint32_t tmpId = det_id.rawId();
-    /*if ((tmpId & kETLformatV2) == 0) {
+    if (((tmpId >> kETLVersionOffset) & 0x1) == 0 && (tmpId & kETLformatV2) == 0) {
       tmpId = newForm(tmpId);
-    }*/
+    }
     id_ = MTDDetId(tmpId).rawId();
   }
 
@@ -111,14 +122,6 @@ public:
   // from v11
   ETLDetId(uint32_t zside, uint32_t ring, uint32_t version, uint32_t servicetyp, uint32_t serviceCopy, uint32_t module, uint32_t modtyp, uint32_t sensor)
       : MTDDetId(DetId::Forward, ForwardSubdetector::FastTime) {
-          std::cout << "v11 pack inputs: version="  << version
-          << " st="   << servicetyp
-          << " sc="   << serviceCopy
-          << " mcs="  << module
-          << " side=" << modtyp
-          << " sn="   << sensor
-          << " => low16=0x" << std::hex << (id_ & 0xFFFF) << std::dec
-          << std::endl;
     id_ |= (MTDType::ETL & kMTDsubdMask) << kMTDsubdOffset | (zside & kZsideMask) << kZsideOffset |
            (ring & kRodRingMask) << kRodRingOffset | version << kETLVersionOffset | 
            (servicetyp & kETLservicetypMask) << kETLservicetypOffset | (serviceCopy & kETLserviceCopyMask) << kETLserviceCopyOffset |
@@ -170,7 +173,9 @@ public:
 
 
   // ---------- Common methods ----------
-
+  /** Returns 1 if bit15 is 1 (version 11 onwards) 0 if not. */
+  inline int version11() const { return (id_ >> kETLVersionOffset) & 0x1; }
+  
   /** Returns ETL service hybrid type from v11 onwards. */
   inline int servTypev11() const { return (id_ >> kETLservicetypOffset) & kETLservicetypMask; }
 

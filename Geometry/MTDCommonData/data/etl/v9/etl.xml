@@ -2593,7 +2593,7 @@
       <Numeric name="StartCopyNo" value="1"/>
       <Numeric name="IncrCopyNo" value="1"/>
       <Numeric name="Delta" value="([ServiceHybrid_X6]+[DeltaX])"/>
-      <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+9.5*[Module_X]+9.5*[DeltaX]), ([y_start_front]+7*[DeltaY_ServiceModule]+6*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
+      <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+9.5*[Module_X]+9.5*[DeltaX]), ([y_start_front]+6*[DeltaY_ServiceModule]+6*[DeltaY]), ([ServiceHybrid_translation_z]) </Vector>
       <Numeric name="Theta" value="90.*deg"/>
       <Numeric name="Phi" value="0.*deg"/>
       <Numeric name="Theta_obj" value="90.*deg"/>
@@ -3618,7 +3618,7 @@
     <Numeric name="Phi_obj" value="0.*deg"/>
   </Algorithm>
   <Algorithm name="mtd:DDMTDLinear">
-    <rParent name="etl:DiscSector_Front_1"/>
+    <rParent name="etl:DiscSector_Front_2"/>
     <String name="ChildName" value="etl:module_ServiceHybrid7_Front"/>
     <Numeric name="N" value="1"/>
     <Numeric name="StartCopyNo" value="2"/>
