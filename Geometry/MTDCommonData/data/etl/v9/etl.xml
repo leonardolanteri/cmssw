@@ -151,7 +151,31 @@
       1, 7, 27, 55, 87, 123, 163, 205, 245, 281, 317, 353, 387, 417, 447,
       481, 515, 555, 591, 631, 673, 713, 751, 785, 815, 839, 851
     </Vector>
+<!--
+     <Vector name="Services_Front_Disc_1" type="numeric" nEntries="71">
+      3, 7, 7, 6, 7, 6, 3, 6, 6, 6, 7, 6, 6, 7, 7, 7, 7, 7, 7, 7, 6, 6, 7, 7,
+      3, 7, 7, 3, 7, 7, 3, 7, 6, 3, 6, 6, 3, 7, 6, 3, 7, 7, 3, 6, 6, 6, 6, 6, 
+      6, 7, 7, 6, 7, 6, 6, 3, 7, 7, 6, 7, 6, 6, 7, 7, 3, 6, 6, 3, 6, 6, 7
+    </Vector>
 
+    <Vector name="Services_Back_Disc_1" type="numeric" nEntries="71">
+      3, 7, 3, 7, 7, 7, 6, 3, 6, 6, 6, 7, 7, 6, 7, 7, 7, 7, 7, 6, 6, 6, 6, 6,
+      6, 6, 6, 6, 6, 7, 7, 3, 6, 6, 3, 6, 6, 3, 7, 7, 3, 7, 7, 3, 7, 7, 6, 6,
+      6, 6, 7, 7, 6, 7, 7, 7, 7, 7, 6, 7, 6, 6, 7, 7, 3, 6, 6, 3, 6, 6, 6
+    </Vector>
+
+    <Vector name="Services_Front_Disc_2" type="numeric" nEntries="71">
+      3, 7, 7, 6, 7, 6, 3, 6, 6, 6, 7, 6, 6, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6,
+      6, 7, 6, 6, 7, 7, 3, 7, 6, 3, 6, 6, 3, 7, 6, 3, 7, 7, 3, 7, 6, 6, 6, 6,
+      6, 7, 7, 6, 7, 6, 6, 3, 7, 7, 6, 7, 6, 6, 7, 7, 3, 6, 6, 3, 6, 6, 7
+    </Vector>
+
+    <Vector name="Services_Back_Disc_2" type="numeric" nEntries="71">
+      3, 7, 3, 7, 7, 7, 6, 3, 6, 6, 6, 7, 7, 6, 7, 7, 7, 7, 7, 6, 6, 6, 6, 6,
+      6, 6, 6, 6, 6, 7, 7, 3, 6, 6, 3, 6, 6, 3, 7, 7, 3, 7, 7, 3, 7, 7, 6, 6,
+      6, 6, 7, 7, 6, 7, 7, 7, 7, 7, 6, 7, 6, 6, 7, 7, 3, 6, 6, 3, 6, 6, 6
+    </Vector>
+-->
     <Vector name="Offset_Front_Disc_1" type="numeric" nEntries="27">
       4, 4, 0, 0, 0, 0, 0, 0, 2, 6, 12, 12, 14, 16, 14, 12, 10, 4, 0, 0, 0, 0, 0, 0, 0, 4, 0
     </Vector>
@@ -1150,7 +1174,7 @@
       <Translation x="0.*mm" y="-0.5*[Module_Y]" z="0.*mm" />
       <rRotation name="rotations:R180"/>
     </PosPart>
- </PosPartSection>
+
 
      <!-- Three Module_back compose the unit module SH_3_back -->
     <PosPart copyNumber="1">
@@ -1204,7 +1228,7 @@
     <!-- Seven Module_front composte the unit module SH_7 -->
     <PosPart copyNumber="1">
       <rParent name="etl:module_ServiceHybrid7_Back"/>
-      <rChild name="etl:Module_Front"/>
+      <rChild name="etl:Module_Back"/>
       <Translation x="-3*[Module_Shift]" y="0.*mm" z="0.*mm" />
     </PosPart>
     <PosPart copyNumber="2">
@@ -1237,6 +1261,7 @@
       <rChild name="etl:Module_Back"/>
       <Translation x="3*[Module_Shift]" y="0.*mm" z="0.*mm" />
     </PosPart>
+    </PosPartSection>
 
   <!-- Algorithm Section begins -->
   
