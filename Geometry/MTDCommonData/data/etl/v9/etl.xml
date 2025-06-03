@@ -8,7 +8,7 @@
     <Constant name="ETLcenter" value="0.5*([caloBase:Zpos0H]+[caloBase:Zpos10])"/>
     <Constant name="Disc1center" value="3000.75*mm"/>
     <Constant name="Disc2center" value="3025.25*mm"/>
-    <Constant name="InnerCylinder_Rmax" value="288*mm"/>
+    <Constant name="InnerCylinder_Rmax" value="300*mm"/>
     <Constant name="ETLzmin" value="[caloBase:Zpos10]"/>
     <Constant name="ETLz1" value="[caloBase:ZposAL]"/>
     <Constant name="ETLz2" value="[caloBase:ZposAH]"/>
@@ -28,7 +28,7 @@
     <Constant name="FrontModerator_thickness" value="20*mm"/>
     <Constant name="BackSupportPlate_thickness" value="5*mm"/>
     <!-- <Constant name="Disc_Rmin" value="315*mm"/> --> <!-- correct value, but not compatible with current modules placement -->
-    <Constant name="Disc_Rmin" value="288*mm"/>
+    <Constant name="Disc_Rmin" value="285*mm"/>
     <Constant name="Disc_Rmax" value="1190*mm"/>
     <Constant name="PatchPanel_Rmin" value="1125*mm"/>
     <Constant name="PatchPanel_Rmax" value="1195*mm"/>
@@ -151,7 +151,7 @@
       1, 7, 27, 55, 87, 123, 163, 205, 245, 281, 317, 353, 387, 417, 447,
       481, 515, 555, 591, 631, 673, 713, 751, 785, 815, 839, 851
     </Vector>
-<!--
+
      <Vector name="Services_Front_Disc_1" type="numeric" nEntries="71">
       3, 7, 7, 6, 7, 6, 3, 6, 6, 6, 7, 6, 6, 7, 7, 7, 7, 7, 7, 7, 6, 6, 7, 7,
       3, 7, 7, 3, 7, 7, 3, 7, 6, 3, 6, 6, 3, 7, 6, 3, 7, 7, 3, 6, 6, 6, 6, 6, 
@@ -175,7 +175,7 @@
       6, 6, 6, 6, 6, 7, 7, 3, 6, 6, 3, 6, 6, 3, 7, 7, 3, 7, 7, 3, 7, 7, 6, 6,
       6, 6, 7, 7, 6, 7, 7, 7, 7, 7, 6, 7, 6, 6, 7, 7, 3, 6, 6, 3, 6, 6, 6
     </Vector>
--->
+
     <Vector name="Offset_Front_Disc_1" type="numeric" nEntries="27">
       4, 4, 0, 0, 0, 0, 0, 0, 2, 6, 12, 12, 14, 16, 14, 12, 10, 4, 0, 0, 0, 0, 0, 0, 0, 4, 0
     </Vector>
@@ -2072,8 +2072,8 @@
     <Numeric name="Phi" value="0.*deg"/>
     <Numeric name="Theta_obj" value="90.*deg"/>
     <Numeric name="Phi_obj" value="0.*deg"/>
-  <Algorithm name="mtd:DDMTDLinear">
   </Algorithm>
+  <Algorithm name="mtd:DDMTDLinear">
     <rParent name="etl:DiscSector_Front_1"/>
     <String name="ChildName" value="etl:module_ServiceHybrid6_Front"/>
     <Numeric name="N" value="3"/>
@@ -2340,7 +2340,7 @@
     <Numeric name="StartCopyNo" value="28"/>
     <Numeric name="IncrCopyNo" value="1"/>
     <Numeric name="Delta" value="([ServiceHybrid_X7]+[DeltaX])"/>
-    <Vector  name="Base" type="numeric" nEntries="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+44*[DeltaY_ServiceModule]+44*[DeltaY]), ([Module_translation_z]) </Vector>
+    <Vector  name="Base" type="numeric" nEntries ="3"> ([x_start_front_1]+3*[Module_X]+3*[DeltaX]), ([y_start_front]+44*[DeltaY_ServiceModule]+44*[DeltaY]), ([Module_translation_z]) </Vector>
     <Numeric name="Theta" value="90.*deg"/>
     <Numeric name="Phi" value="0.*deg"/>
     <Numeric name="Theta_obj" value="90.*deg"/>
