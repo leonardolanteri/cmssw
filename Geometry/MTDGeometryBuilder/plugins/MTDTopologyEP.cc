@@ -89,7 +89,7 @@ void MTDTopologyEP::fillBTLtopology(const MTDGeometry& mtdgeo, MTDTopology::BTLV
 void MTDTopologyEP::fillETLtopology(const PMTDParameters& ptp, int& mtdTopologyMode, MTDTopology::ETLValues& etlVals) {
   mtdTopologyMode = ptp.topologyMode_;
 
-  // Check on the internal consistency of thr ETL layout information provided by parameters
+  // Check on the internal consistency of thr ETL layout information provided by parameters; there is still no check on the service hybrid dispostion vectors
 
   for (size_t it = 3; it <= 9; it++) {
     bool exception = ((MTDTopologyMode::etlLayoutFromTopoMode(mtdTopologyMode) == MTDTopologyMode::EtlLayout::v10) &&
@@ -105,7 +105,9 @@ void MTDTopologyEP::fillETLtopology(const PMTDParameters& ptp, int& mtdTopologyM
 
   MTDTopology::ETLfaceLayout tmpFace;
 
-  if (static_cast<int>(MTDTopologyMode::etlLayoutFromTopoMode(mtdTopologyMode)) <=
+  //will be modified with the correct versioning
+  //first will have to be <=v8
+  if (static_cast<int>(MTDTopologyMode::etlLayoutFromTopoMode(mtdTopologyMode)) <
       static_cast<int>(MTDTopologyMode::EtlLayout::v8)) {
     // Disc1 Front Face (0), starting with type Right (2)
 
@@ -155,7 +157,8 @@ void MTDTopologyEP::fillETLtopology(const PMTDParameters& ptp, int& mtdTopologyM
 
     etlVals.emplace_back(tmpFace);
 
-  } else if (static_cast<int>(MTDTopologyMode::etlLayoutFromTopoMode(mtdTopologyMode)) >
+  //second will have to be <=v10
+  } else if (static_cast<int>(MTDTopologyMode::etlLayoutFromTopoMode(mtdTopologyMode)) ==
              static_cast<int>(MTDTopologyMode::EtlLayout::v8)) {
     // Disc1 Front Face (0), starting with type Right (2)
 
@@ -204,6 +207,65 @@ void MTDTopologyEP::fillETLtopology(const PMTDParameters& ptp, int& mtdTopologyM
     tmpFace.offset_[1] = ptp.vitems_[9].vpars_;      // offset_BR
 
     etlVals.emplace_back(tmpFace);
+
+  //third will have to be >v10
+  } else if (static_cast<int>(MTDTopologyMode::etlLayoutFromTopoMode(mtdTopologyMode)) >
+             static_cast<int>(MTDTopologyMode::EtlLayout::v8)) {
+    // Disc1 Front Face (0), starting with type Right (2)
+
+    tmpFace.idDiscSide_ = 0;  // ETL front side, Disc1
+    tmpFace.idDetType1_ = 2;  // etl module type HalfFront2
+
+    tmpFace.start_copy_[0] = ptp.vitems_[2].vpars_;  // start_copy_FR
+    tmpFace.start_copy_[1] = ptp.vitems_[2].vpars_;  // start_copy_FL
+    tmpFace.offset_[0] = ptp.vitems_[6].vpars_;      // offset_FR
+    tmpFace.offset_[1] = ptp.vitems_[6].vpars_;      // offset_FL
+    tmpFace.services_[0] = ptp.vitems_[10].vpars_;   // services_FR
+    tmpFace.services_[1] = ptp.vitems_[10].vpars_;   // services_FL
+
+    etlVals.emplace_back(tmpFace);
+
+    // Disc1 Back Face (1), starting with type Left (1)
+
+    tmpFace.idDiscSide_ = 1;  // ETL back side, Disc1
+    tmpFace.idDetType1_ = 2;  // ETL module type HalfBack2
+
+    tmpFace.start_copy_[0] = ptp.vitems_[3].vpars_;  // start_copy_BL
+    tmpFace.start_copy_[1] = ptp.vitems_[3].vpars_;  // start_copy_BR
+    tmpFace.offset_[0] = ptp.vitems_[7].vpars_;      // offset_BL
+    tmpFace.offset_[1] = ptp.vitems_[7].vpars_;      // offset_BR
+    tmpFace.services_[0] = ptp.vitems_[11].vpars_;   // services_FR
+    tmpFace.services_[1] = ptp.vitems_[11].vpars_;   // services_FL
+
+    etlVals.emplace_back(tmpFace);
+
+    // Disc2 Front Face (0), starting with type Right (2)
+
+    tmpFace.idDiscSide_ = 2;  // ETL front side, Disc2
+    tmpFace.idDetType1_ = 2;  // etl module type HalfFront2
+
+    tmpFace.start_copy_[0] = ptp.vitems_[4].vpars_;  // start_copy_FR
+    tmpFace.start_copy_[1] = ptp.vitems_[4].vpars_;  // start_copy_FL
+    tmpFace.offset_[0] = ptp.vitems_[8].vpars_;      // offset_FR
+    tmpFace.offset_[1] = ptp.vitems_[8].vpars_;      // offset_FL
+    tmpFace.services_[0] = ptp.vitems_[12].vpars_;   // services_FR
+    tmpFace.services_[1] = ptp.vitems_[12].vpars_;   // services_FL
+
+    etlVals.emplace_back(tmpFace);
+
+    // Disc2 Back Face (1), starting with type Left (1)
+
+    tmpFace.idDiscSide_ = 3;  // ETL back side, Disc2
+    tmpFace.idDetType1_ = 2;  // ETL module type HalfBack2
+
+    tmpFace.start_copy_[0] = ptp.vitems_[5].vpars_;  // start_copy_BL
+    tmpFace.start_copy_[1] = ptp.vitems_[5].vpars_;  // start_copy_BR
+    tmpFace.offset_[0] = ptp.vitems_[9].vpars_;      // offset_BL
+    tmpFace.offset_[1] = ptp.vitems_[9].vpars_;      // offset_BR
+    tmpFace.services_[0] = ptp.vitems_[13].vpars_;   // services_FR
+    tmpFace.services_[1] = ptp.vitems_[13].vpars_;   // services_FL
+
+    etlVals.emplace_back(tmpFace);
   }
 
 #ifdef EDM_ML_DEBUG
@@ -222,7 +284,9 @@ void MTDTopologyEP::fillETLtopology(const PMTDParameters& ptp, int& mtdTopologyM
                                       << "\n start_copy[0]= " << print_array(ilay.start_copy_[0])
                                       << "\n start_copy[1]= " << print_array(ilay.start_copy_[1])
                                       << "\n offset[0]= " << print_array(ilay.offset_[0])
-                                      << "\n offset[1]= " << print_array(ilay.offset_[1]);
+                                      << "\n offset[1]= " << print_array(ilay.offset_[1])
+                                      << "\n services[0]= " << print_array(ilay.services_[0])
+                                      << "\n services[1]= " << print_array(ilay.services_[1]);
   }
 
 #endif

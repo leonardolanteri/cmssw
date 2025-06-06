@@ -8,10 +8,10 @@ std::ostream& operator<<(std::ostream& os, const ETLDetId& id) {
      << " Disc        : " << id.nDisc() << std::endl
      << " Side        : " << id.discSide() << std::endl
      << " Sector      : " << id.sector() << std::endl
-     << " Service Hybrid Type : " << id.servTypev11() << std::endl
-     << " Service Hybrid Number : " << id.servCopyv11() << std::endl
-     << " Module Number     : " << id.modulev11() << std::endl
-     << " Module Type : " << id.modTypev11() << std::endl
-     << " Sensor      : " << id.sensorv11() << std::endl;
+     << " Service Hybrid Type : " << id.servType() << std::endl
+     << " Service Hybrid Number : " << id.servCopy() << std::endl
+     << " Module Number     : " << id.module() << std::endl
+     << " Module Type : " << id.modType() << std::endl
+     << " Sensor      : " << id.sensor() << std::endl;
   return os;
 }
