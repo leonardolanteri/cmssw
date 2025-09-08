@@ -199,7 +199,7 @@ public:
     else { return (id_ >> kETLmodTypeOffset) & kETLmodTypeMask; }}
 
   /** Returns ETL module sensor number. Uses version bit to decide between pre-v11 and v11+. */
-  inline int sensor const {
+  inline int sensor() const {
     if (version() == 1) { 
       int s = (id_ & kETLsensorv11Mask);
       return (s == 0 ? 2 : 1);}

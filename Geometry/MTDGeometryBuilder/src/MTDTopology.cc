@@ -2,10 +2,13 @@
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include "Geometry/MTDCommonData/interface/MTDTopologyMode.h"
 
+#include <iostream>
 #include <utility>
 
 MTDTopology::MTDTopology(const int& topologyMode, const BTLValues& btl, const ETLValues& etl)
-    : mtdTopologyMode_(topologyMode), btlVals_(btl), etlVals_(etl) {}
+    : mtdTopologyMode_(topologyMode), btlVals_(btl), etlVals_(etl) {
+      static_etlVals_ = &etlVals_;
+    }
 
 std::pair<uint32_t, uint32_t> MTDTopology::btlIndex(const uint32_t detId) const {
   size_t index(0);
@@ -97,6 +100,61 @@ uint32_t MTDTopology::etashiftBTL(const uint32_t detid, const int etaShift) cons
   }
 }
 
+size_t MTDTopology::servtomoduleETL(const uint32_t detid) const {
+  ETLDetId id(detid);
+  int sum = 0;
+  if (id.version() == 1){
+    int servtyp = (id.servType() == 1) ? 3 : (id.servType() == 2 ? 6 : 7);
+    int servcop = id.servCopy();
+    uint32_t discface = id.discSide() + 2 * (id.nDisc() - 1);
+    int module = id.module();
+    uint32_t modtyp = id.modType();
+    size_t iHome = (modtyp == etlVals_[discface].idDetType1_) ? 0 : 1;
+    int count = 0;
+
+    for (size_t iloop = 0; iloop < etlVals_[discface].services_[iHome].size(); iloop++){
+      if (etlVals_[discface].services_[iHome][iloop] == servtyp){
+        ++count;
+      }
+      if (count < servcop) { sum += etlVals_[discface].services_[iHome][iloop]; }
+      else if (count == servcop) { break; }
+    }
+    sum += module;
+  }
+  else {sum = id.module();}
+
+  return sum;
+}
+
+// Static version of the function defined above, to eventually use in OrderETLsector
+// size_t MTDTopology::servtomoduleETL_static(const uint32_t detid) {
+//   ETLDetId id(detid);
+//   int sum = 0;
+//   if (id.version() == 1){
+//     int servtyp = (id.servType() == 1) ? 3 : (id.servType() == 2 ? 6 : 7);
+//     int servcop = id.servCopy();
+//     uint32_t discface = id.discSide() + 2 * (id.nDisc() - 1);
+//     int module = id.module();
+//     uint32_t modtyp = id.modType();
+//     size_t iHome = (modtyp == static_etlVals_[discface].idDetType1_) ? 0 : 1;
+//     int count = 0;
+
+//     for (size_t iloop = 0; iloop < static_etlVals_[discface].services_[iHome].size(); iloop++){
+//       if (static_etlVals_[discface].services_[iHome][iloop] == servtyp){
+//         ++count;
+//       }
+//       if (count < servcop) { sum += static_etlVals_[discface].services_[iHome][iloop]; }
+//       else if (count == servcop) { break; }
+//     }
+//     sum += module;
+//   }
+//   else { sum = id.module(); }
+
+//   return sum;
+// }
+
+
+
 bool MTDTopology::orderETLSector(const GeomDet*& gd1, const GeomDet*& gd2) {
   ETLDetId det1(gd1->geographicalId().rawId());
   ETLDetId det2(gd2->geographicalId().rawId());
@@ -112,30 +170,22 @@ bool MTDTopology::orderETLSector(const GeomDet*& gd1, const GeomDet*& gd2) {
   }
 }
 
-size_t MTDTopology::servtomoduleETL(const uint32_t detid) const {
-  ETLDetId start_mod(detid);
 
-  int servtyp = (id.servType() == 1) ? 3 : (id.servType() == 2 ? 6 : 7);
-  int servcop = id.servCopy();
-  uint32_t discface = id.discSide() + 2 * (id.nDisc() - 1);
-  size_t iHome = (modtyp == etlVals_[discface].idDetType1_) ? 0 : 1;
-  int module = id.module();
-  uint32_t modtyp = start_mod.modType();
-  int count = 0;
-  int sum = 0;
+// New def of orderETLSector that uses servTomoduleETL_static to retrieve the module copy number, still  problems with the 'static issue'
+// bool MTDTopology::orderETLSector(const GeomDet*& gd1, const GeomDet*& gd2) {
+//   ETLDetId det1(gd1->geographicalId().rawId());
+//   ETLDetId det2(gd2->geographicalId().rawId());
 
-  for (size_t iloop = 0; iloop < etlVals_[discface].services_[iHome].size(); iloop++){
-    if (etlVals_[discface].services_[iHome][iloop] == servtyp){
-      ++count;
-    }
-    if (count < servcop) { sum += etlVals_[discface].services_[iHome][iloop]; }
-    else if (count == servcop) { break; }
-  }
-  sum += module;
-
-  return sum;
-}
-
+//   if (det1.mtdRR() != det2.mtdRR()) {
+//     return det1.mtdRR() < det2.mtdRR();
+//   } else if (det1.modType() != det2.modType()) {
+//     return det1.modType() < det2.modType();
+//   } else if (servtomoduleETL_static(gd1->geographicalId().rawId()) != servtomoduleETL_static(gd2->geographicalId().rawId())) {
+//     return servtomoduleETL_static(gd1->geographicalId().rawId()) < servtomoduleETL_static(gd2->geographicalId().rawId());
+//   } else {
+//     return det1.sensor() < det2.sensor();
+//   }
+// }
 
 size_t MTDTopology::hshiftETL(const uint32_t detid, const int horizontalShift) const {
   ETLDetId start_mod(detid);
@@ -145,16 +195,15 @@ size_t MTDTopology::hshiftETL(const uint32_t detid, const int horizontalShift) c
     return failIndex_;
   }
   int hsh = horizontalShift > 0 ? 1 : -1;
-
   // distinguish numbering in prev8 / v8 geometries
   auto topoMode = getMTDTopologyMode();
   int sensor = start_mod.sensor();
 
   //distingish the two DetId versions. Has to be updated with the correct versioning (>v10)
-  if (static_cast<int>(MTDTopologyMode::etlLayoutFromTopoMode(topoMode)) >=
-      static_cast<int>(MTDTopologyMode::EtlLayout::v9)) {
-        int module = servtomoduleETL(detid);
-  } else { int module = start_mod.module(); }
+  int module = start_mod.module(); 
+  if (static_cast<int>(MTDTopologyMode::etlLayoutFromTopoMode(topoMode)) >= static_cast<int>(MTDTopologyMode::EtlLayout::v9)) {
+    module = servtomoduleETL(detid);
+  }
   uint32_t modtyp = start_mod.modType();
   uint32_t discface = start_mod.discSide() + 2 * (start_mod.nDisc() - 1);
   int geomDetIndex;
@@ -191,7 +240,6 @@ size_t MTDTopology::hshiftETL(const uint32_t detid, const int horizontalShift) c
 
 size_t MTDTopology::vshiftETL(const uint32_t detid, const int verticalShift, size_t& closest) const {
   closest = failIndex_;
-
   ETLDetId start_mod(detid);
 
   if (verticalShift == 0) {
@@ -203,10 +251,11 @@ size_t MTDTopology::vshiftETL(const uint32_t detid, const int verticalShift, siz
   int sensor = start_mod.sensor();
   auto topoMode = getMTDTopologyMode();
   //distingish the two DetId versions. Has to be updated with the correct versioning (>v10)
-  if (static_cast<int>(MTDTopologyMode::etlLayoutFromTopoMode(topoMode)) >=
-      static_cast<int>(MTDTopologyMode::EtlLayout::v9)) {
-        int module = servtomoduleETL(detid);
-  } else { int module = start_mod.module(); }
+  int module = start_mod.module(); 
+  if (static_cast<int>(MTDTopologyMode::etlLayoutFromTopoMode(topoMode)) >= static_cast<int>(MTDTopologyMode::EtlLayout::v9)) {
+    module = servtomoduleETL(detid);
+  }
+  edm::LogWarning("MTDTopology")<< "[hshiftETL] module AAAAAAA = " << module; 
   uint32_t modtyp = start_mod.modType();
   uint32_t discface = start_mod.discSide() + 2 * (start_mod.nDisc() - 1);
   int geomDetIndex;
@@ -240,7 +289,7 @@ size_t MTDTopology::vshiftETL(const uint32_t detid, const int verticalShift, siz
   }
 
   if (iBin == etlVals_[discface].start_copy_[iHome].size()) {
-    edm::LogWarning("MTDTopology") << "Module number not compatible with layout, abort";
+    edm::LogWarning("MTDTopology") << "Module number is not compatible with layout, abort";
     return failIndex_;
   }
 

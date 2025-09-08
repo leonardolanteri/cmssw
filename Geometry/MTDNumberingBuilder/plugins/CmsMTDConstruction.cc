@@ -1,4 +1,4 @@
-//#define EDM_ML_DEBUG
+#define EDM_ML_DEBUG
 
 #include "DetectorDescription/Core/interface/DDFilteredView.h"
 #include "DetectorDescription/DDCMS/interface/DDFilteredView.h"

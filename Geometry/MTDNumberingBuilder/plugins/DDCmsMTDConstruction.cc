@@ -1,4 +1,4 @@
-//#define EDM_ML_DEBUG
+#define EDM_ML_DEBUG
 
 #include "Geometry/MTDNumberingBuilder/plugins/DDCmsMTDConstruction.h"
 

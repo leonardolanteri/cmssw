@@ -26,22 +26,22 @@ process.MessageLogger.cerr.GeometricTimingDetAnalyzer = cms.untracked.PSet(
 )
 process.MessageLogger.files.mtdNumberingDDD = cms.untracked.PSet(
     DEBUG = cms.untracked.PSet(
-        limit = cms.untracked.int32(0)
+        limit = cms.untracked.int32(-1)
     ),
     ERROR = cms.untracked.PSet(
-        limit = cms.untracked.int32(0)
+        limit = cms.untracked.int32(-1)
     ),
     FWKINFO = cms.untracked.PSet(
-        limit = cms.untracked.int32(0)
+        limit = cms.untracked.int32(-1)
     ),
     INFO = cms.untracked.PSet(
-        limit = cms.untracked.int32(0)
+        limit = cms.untracked.int32(-1)
     ),
     MTDUnitTest = cms.untracked.PSet(
         limit = cms.untracked.int32(-1)
     ),
     WARNING = cms.untracked.PSet(
-        limit = cms.untracked.int32(0)
+        limit = cms.untracked.int32(-1)
     ),
     noLineBreaks = cms.untracked.bool(True),
     threshold = cms.untracked.string('INFO')

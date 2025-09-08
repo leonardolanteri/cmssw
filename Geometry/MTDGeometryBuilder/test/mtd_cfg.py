@@ -21,29 +21,29 @@ process.maxEvents = cms.untracked.PSet(
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
 process.MessageLogger.cerr.threshold = cms.untracked.string('INFO')
 process.MessageLogger.cerr.INFO = cms.untracked.PSet(
-    limit = cms.untracked.int32(0)
+    limit = cms.untracked.int32(-1)
 )
 process.MessageLogger.cerr.MTDDigiGeometryAnalyzer = cms.untracked.PSet(
-    limit = cms.untracked.int32(0)
+    limit = cms.untracked.int32(-1)
 )
 process.MessageLogger.cerr.DD4hep_TestPixelTopology = cms.untracked.PSet(
-    limit = cms.untracked.int32(0)
+    limit = cms.untracked.int32(-1)
 )
 process.MessageLogger.cerr.MTDUnitTest = cms.untracked.PSet(
-    limit = cms.untracked.int32(0)
+    limit = cms.untracked.int32(-1)
 )
 process.MessageLogger.files.mtdGeometryDD4hep = cms.untracked.PSet(
     DEBUG = cms.untracked.PSet(
-        limit = cms.untracked.int32(0)
+        limit = cms.untracked.int32(-1)
     ),
     ERROR = cms.untracked.PSet(
-        limit = cms.untracked.int32(0)
+        limit = cms.untracked.int32(-1)
     ),
     FWKINFO = cms.untracked.PSet(
-        limit = cms.untracked.int32(0)
+        limit = cms.untracked.int32(-1)
     ),
     INFO = cms.untracked.PSet(
-        limit = cms.untracked.int32(0)
+        limit = cms.untracked.int32(-1)
     ),
     MTDUnitTest = cms.untracked.PSet(
         limit = cms.untracked.int32(-1)

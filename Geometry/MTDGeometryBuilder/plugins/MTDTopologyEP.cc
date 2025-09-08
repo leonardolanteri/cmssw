@@ -1,4 +1,4 @@
-//#define EDM_ML_DEBUG
+#define EDM_ML_DEBUG
 
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include "FWCore/ParameterSet/interface/ConfigurationDescriptions.h"
@@ -88,6 +88,16 @@ void MTDTopologyEP::fillBTLtopology(const MTDGeometry& mtdgeo, MTDTopology::BTLV
 
 void MTDTopologyEP::fillETLtopology(const PMTDParameters& ptp, int& mtdTopologyMode, MTDTopology::ETLValues& etlVals) {
   mtdTopologyMode = ptp.topologyMode_;
+
+#ifdef EDM_ML_DEBUG
+   edm::LogVerbatim("MTDTopologyEP") << "DEBUG: PMTDParameters vitems_ size: " << ptp.vitems_.size();
+   edm::LogVerbatim("MTDTopologyEP") << "DEBUG: PMTDParameters topologyMode: " << ptp.topologyMode_;
+   edm::LogVerbatim("MTDTopologyEP") << "DEBUG: PMTDParameters vpars_ size: " << ptp.vpars_.size();
+
+   edm::LogVerbatim("MTDTopologyEP") << "DEBUG: MTDTopologyMode::EtlLayout::v8 integer value: " << static_cast<int>(MTDTopologyMode::EtlLayout::v8);
+   edm::LogVerbatim("MTDTopologyEP") << "DEBUG: MTDTopologyMode::EtlLayout::v10 integer value: " << static_cast<int>(MTDTopologyMode::EtlLayout::v10);
+#endif
+
 
   // Check on the internal consistency of thr ETL layout information provided by parameters; there is still no check on the service hybrid dispostion vectors
 
