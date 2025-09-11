@@ -7,7 +7,6 @@
 
 MTDTopology::MTDTopology(const int& topologyMode, const BTLValues& btl, const ETLValues& etl)
     : mtdTopologyMode_(topologyMode), btlVals_(btl), etlVals_(etl) {
-      static_etlVals_ = &etlVals_;
     }
 
 std::pair<uint32_t, uint32_t> MTDTopology::btlIndex(const uint32_t detId) const {
